@@ -18,8 +18,8 @@ class EmployerFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->company(),
-            'logo' => fake()->imageUrl(),
+            'name' => $company = fake()->company(),
+            'logo' => 'https://placehold.co/400?text=' . substr(urlencode($company), 0, 6),
             'user_id' => User::factory(),
         ];
     }
