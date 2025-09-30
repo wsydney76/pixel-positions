@@ -12,5 +12,10 @@ class EmployerController extends Controller
         $employers = Employer::orderBy('name')->get();
         return view('employers.index', compact('employers'));
     }
-}
 
+    public function show(\App\Models\Employer $employer)
+    {
+        $employer->load('jobs');
+        return view('employers.show', compact('employer'));
+    }
+}

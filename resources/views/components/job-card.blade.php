@@ -1,10 +1,14 @@
 @props(['job'])
 
 <x-panel class="flex flex-col text-center">
-    <div class="self-start text-sm text-black dark:text-white">{{ $job->employer->name }}</div>
+    <div class="self-start text-sm text-black dark:text-white hover:text-blue-600 ">
+        <a href="{{ route('employers.show', $job->employer) }}">
+            {{ $job->employer->name ?? 'N/A' }}
+        </a>
+    </div>
 
     <div class="py-8">
-        <h3 class="group-hover:text-blue-600 text-xl font-bold transition-colors text-black dark:text-white">
+        <h3 class="hover:text-blue-600 text-xl font-bold transition-colors text-black dark:text-white">
             <a href="{{ route('jobs.show', $job) }}">
                 {{ $job->title }}
             </a>
@@ -13,9 +17,11 @@
     </div>
 
     <div class="flex justify-between items-center mt-auto">
-        <div>
+        <div class="flex flex-wrap gap-1">
             @foreach($job->tags as $tag)
-                <x-tag :$tag size="small" />
+                <div>
+                    <x-tag :$tag size="small" />
+                </div>
             @endforeach
         </div>
 

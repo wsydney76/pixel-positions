@@ -32,10 +32,13 @@
         @endif
     </x-panel>
 
-    <a href="{{ route('jobs.index') }}" class="text-blue-600 underline mt-4 inline-block">Back to Job Listings</a>
+    <div class="space-x-4">
 
-    @can('edit', $job)
-        <a href="{{ route('jobs.edit', $job) }}" class="text-blue-600 underline mt-4 inline-block">Edit</a>
-    @endcan
+        <a href="{{ route('employers.show', $job->employer) }}" class="text-blue-600 underline mt-4 inline-block">All jobs by {{ $job->employer->name }}</a>
+        @can('edit', $job)
+            <a href="{{ route('jobs.edit', $job) }}" class="text-blue-600 underline mt-4 inline-block">Edit</a>
+        @endcan
+        <a href="{{ route('jobs.index') }}" class="text-blue-600 underline mt-4 inline-block">Back to Job Listings</a>
+    </div>
 </x-layout>
 

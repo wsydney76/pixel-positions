@@ -6,9 +6,11 @@
     </div>
 
     <div class="flex-1 flex flex-col">
-        <a href="#" class="self-start text-sm text-gray-900 dark:text-gray-400 transition-colors">{{ $job->employer->name }}</a>
+        <a href="{{ route('employers.show', $job->employer) }}" class="self-start text-sm text-gray-900 dark:text-gray-400 hover:text-blue-600 transition-colors">
+                {{ $job->employer->name ?? 'N/A' }}
+        </a>
 
-        <h3 class="font-bold text-xl mt-3 group-hover:text-blue-600 transition-colors text-black dark:text-white">
+        <h3 class="font-bold text-xl mt-3 hover:text-blue-600 transition-colors text-black dark:text-white">
             <a href="{{ route('jobs.show', $job) }}">
                 {{ $job->title }}
             </a>
@@ -17,9 +19,11 @@
         <p class="text-sm text-gray-900 dark:text-gray-400 mt-auto">{{ $job->salary }}</p>
     </div>
 
-    <div>
+    <div class="flex flex-wrap gap-2">
         @foreach($job->tags as $tag)
-            <x-tag :$tag />
+            <div>
+                <x-tag :$tag />
+            </div>
         @endforeach
     </div>
 </x-panel>

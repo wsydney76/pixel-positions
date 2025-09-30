@@ -7,7 +7,7 @@
                 <x-panel>
                     <div class="flex space-x-4 items-center">
                         <x-employer-logo :employer="$employer" :width="64"/>
-                        <span class="text-lg font-semibold">{{ $employer->name }}</span>
+                        <a href="{{ route('employers.show', $employer) }}" class="text-lg font-semibold">{{ $employer->name }}</a>
                     </div>
                 </x-panel>
             @empty
