@@ -4,7 +4,7 @@
     <x-panel>
         <div class="mb-2 flex items-center gap-4">
             <div>
-                <x-employer-logo width="60" :employer="$job->employer" />
+                <x-employer-logo width="60" :employer="$job->employer"/>
             </div>
             <div class="text-gray-600 text-lg">{{ $job->employer->name ?? 'N/A' }}</div>
         </div>
@@ -26,10 +26,16 @@
         @if($job->tags->count())
             <div class="mb-4">
                 @foreach($job->tags as $tag)
-                    <x-tag :$tag />
+                    <x-tag :$tag/>
                 @endforeach
             </div>
         @endif
     </x-panel>
+
+    <a href="{{ route('jobs.index') }}" class="text-blue-600 underline mt-4 inline-block">Back to Job Listings</a>
+
+    @can('edit', $job)
+        <a href="{{ route('jobs.edit', $job) }}" class="text-blue-600 underline mt-4 inline-block">Edit</a>
+    @endcan
 </x-layout>
 

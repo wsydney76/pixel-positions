@@ -71,4 +71,45 @@ class JobController extends Controller
     {
         return view('jobs.show', compact('job'));
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Job $job)
+    {
+        return view('jobs.edit', compact('job'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Job $job)
+    {
+        $attributes = $request->validate([
+            'title' => ['required'],
+            'salary' => ['required'],
+            'location' => ['required'],
+            'description' => ['nullable'],
+            'schedule' => ['required', Rule::in(['Part Time', 'Full Time'])],
+            'url' => ['required', 'active_url'],
+            'tags' => ['nullable'],
+        ]);
+
+        $attributes['featured'] = $request->has('featured');
+
+        $job->update(Arr::except($attributes, 'tags'));
+
+        // Update tags
+        if (isset($attributes['tags'])) {
+            $tagNames = array_filter(array_map('trim', explode(',', $attributes['tags'])));
+            $tagIds = [];
+            foreach ($tagNames as $tagName) {
+                $tag = \App\Models\Tag::firstOrCreate(['name' => $tagName]);
+                $tagIds[] = $tag->id;
+            }
+            $job->tags()->sync($tagIds);
+        }
+
+        return redirect()->route('jobs.show', $job)->with('success', 'Job updated successfully.');
+    }
 }
