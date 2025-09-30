@@ -28,17 +28,11 @@
             </div>
         </section>
 
-        <section>
+        <section id="recent-jobs">
             <x-section-heading>Recent Jobs</x-section-heading>
 
-            <div class="mt-6 space-y-6">
-                @foreach($jobs as $job)
-                    <x-job-card-wide :$job />
-                @endforeach
-            </div>
-
             <div class="mt-6">
-                {{ $jobs->links() }}
+                <livewire:jobs-list />
             </div>
         </section>
     </div>
