@@ -6,6 +6,8 @@
         <x-forms.input label="Salary" name="salary" placeholder="$90,000 USD" />
         <x-forms.input label="Location" name="location" placeholder="Winter Park, Florida" />
 
+        <x-forms.textarea label="Description" name="description" placeholder="Describe the job role, requirements, etc." />
+
         <x-forms.select label="Schedule" name="schedule">
             <option>Part Time</option>
             <option>Full Time</option>
