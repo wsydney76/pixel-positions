@@ -7,14 +7,14 @@
         </a>
     </div>
 
-    <div class="py-8">
-        <h3 class="hover:text-blue-600 text-xl font-bold transition-colors text-black dark:text-white">
-            <a href="{{ route('jobs.show', $job) }}">
+    <a  href="{{ route('jobs.show', $job) }}" class="group py-8">
+        <h3 class="group-hover:text-blue-600 text-xl font-bold transition-colors text-black dark:text-white">
+
                 {{ $job->title }}
-            </a>
+
         </h3>
         <p class="text-sm mt-4 text-black dark:text-white">{{ $job->salary }}</p>
-    </div>
+    </a>
 
     <div class="flex justify-between items-center mt-auto">
         <div class="flex flex-wrap gap-1">
