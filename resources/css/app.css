@@ -10,7 +10,7 @@
 
     --text-2xs: 0.625rem;
 
-    --color-black: #060612;
-    --color-white: #FAFAFF;
+    --color-black: oklch(29.3% 0.066 243.157);
+    --color-white: oklch(97.7% 0.013 236.62);
 }
 

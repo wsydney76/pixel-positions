@@ -16,7 +16,7 @@
 
 <body class="bg-white text-black font-hanken-grotesk pb-20 dark:bg-black dark:text-white">
     <div class="px-10">
-        <nav class="flex justify-between items-center py-4 border-b border-black/10 dark:border-white/10">
+        <nav class="-mx-10  px-10 bg-black text-white flex justify-between items-center py-4 dark:border-b dark:border-white/10">
             <div>
                 <a href="/">
                     <img src="{{ Vite::asset('resources/images/logo.svg') }}" alt="">
