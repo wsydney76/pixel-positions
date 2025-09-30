@@ -5,7 +5,7 @@
 
     <div class="py-8">
         <h3 class="group-hover:text-blue-600 text-xl font-bold transition-colors text-black dark:text-white">
-            <a href="{{ $job->url }}" target="_blank">
+            <a href="{{ route('jobs.show', $job) }}">
                 {{ $job->title }}
             </a>
         </h3>

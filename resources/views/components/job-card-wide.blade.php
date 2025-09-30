@@ -9,7 +9,7 @@
         <a href="#" class="self-start text-sm text-gray-900 dark:text-gray-400 transition-colors">{{ $job->employer->name }}</a>
 
         <h3 class="font-bold text-xl mt-3 group-hover:text-blue-600 transition-colors text-black dark:text-white">
-            <a href="{{ $job->url }}" target="_blank">
+            <a href="{{ route('jobs.show', $job) }}">
                 {{ $job->title }}
             </a>
         </h3>

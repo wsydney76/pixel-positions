@@ -63,4 +63,12 @@ class JobController extends Controller
 
         return redirect('/');
     }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(\App\Models\Job $job)
+    {
+        return view('jobs.show', compact('job'));
+    }
 }
