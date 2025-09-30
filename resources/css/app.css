@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
-@config "../../tailwind.config.js";
-
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../../**/*.blade.php';
 @source '../**/*.js';
+
+@theme {
+    --font-hanken-grotesk: "Hanken Grotesk", "sans-serif";
+
+    --text-2xs: 0.625rem;
+
+    --color-black: #060612;
+    --color-white: #FAFAFF;
+}
+

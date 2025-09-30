@@ -14,9 +14,9 @@
     @vite(['resources/js/app.js'])
 </head>
 
-<body class="bg-black text-white font-hanken-grotesk pb-20">
+<body class="bg-white text-black font-hanken-grotesk pb-20 dark:bg-black dark:text-white">
     <div class="px-10">
-        <nav class="flex justify-between items-center py-4 border-b border-white/10">
+        <nav class="flex justify-between items-center py-4 border-b border-black/10 dark:border-white/10">
             <div>
                 <a href="/">
                     <img src="{{ Vite::asset('resources/images/logo.svg') }}" alt="">
