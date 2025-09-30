@@ -18,19 +18,19 @@ class JobController extends Controller
     {
         $jobs = Job::latest()
             ->with(['employer', 'tags'])
-            ->get();
+            ->paginate(12);
 
         $featuredJobs = Job::latest()
             ->with(['employer', 'tags'])
             ->where('featured', true)
-            ->take(6)
+            ->take(3)
             ->get();
 
 
         return view('jobs.index', [
             'jobs' => $jobs,
             'featuredJobs' => $featuredJobs,
-            'tags' => Tag::all(),
+            'tags' => Tag::orderBy('name')->get(),
         ]);
     }
 
