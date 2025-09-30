@@ -112,4 +112,13 @@ class JobController extends Controller
 
         return redirect()->route('jobs.show', $job)->with('success', 'Job updated successfully.');
     }
+
+    /**
+     * Remove the specified job from storage.
+     */
+    public function destroy(Job $job)
+    {
+        $job->delete();
+        return redirect()->route('jobs.index')->with('success', 'Job deleted successfully.');
+    }
 }

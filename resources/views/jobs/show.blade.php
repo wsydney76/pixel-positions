@@ -33,12 +33,15 @@
     </x-panel>
 
     <div class="space-x-4">
-
         <a href="{{ route('employers.show', $job->employer) }}" class="text-blue-600 underline mt-4 inline-block">All jobs by {{ $job->employer->name }}</a>
         @can('edit', $job)
             <a href="{{ route('jobs.edit', $job) }}" class="text-blue-600 underline mt-4 inline-block">Edit</a>
+            <form action="{{ route('jobs.destroy', $job) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this job?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="cursor-pointer text-red-600 underline mt-4 inline-block">Delete</button>
+            </form>
         @endcan
         <a href="{{ route('jobs.index') }}" class="text-blue-600 underline mt-4 inline-block">Back to Job Listings</a>
     </div>
 </x-layout>
-
