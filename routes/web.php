@@ -43,3 +43,5 @@ Route::middleware('guest')->group(function () {
 Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth');
 Route::get('/employers', [EmployerController::class, 'index'])->name('employers.index');
 Route::get('/employers/{employer}', [EmployerController::class, 'show'])->name('employers.show');
+
+Route::view('/search', 'jobs.search')->name('jobs.search');

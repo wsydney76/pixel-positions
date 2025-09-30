@@ -1,9 +1,9 @@
 @props(['job'])
 
 <x-panel class="flex gap-x-6">
-    <div>
+    <a href="{{ route('jobs.show', $job) }}">
         <x-employer-logo :employer="$job->employer" />
-    </div>
+    </a>
 
     <div class="flex-1 flex flex-col">
         <a href="{{ route('employers.show', $job->employer) }}" class="self-start text-sm text-gray-900 dark:text-gray-400 hover:text-blue-600 transition-colors">

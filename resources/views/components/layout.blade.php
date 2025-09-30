@@ -12,6 +12,8 @@
         href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap"
         rel="stylesheet">
     @vite(['resources/js/app.js'])
+    {{--<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>--}}
+    @livewireStyles
 </head>
 
 <body class="bg-white text-black font-hanken-grotesk pb-20 dark:bg-black dark:text-white">
@@ -28,6 +30,7 @@
                 {{--<a href="#">Careers</a>
                 <a href="#">Salaries</a>--}}
                 <a href="{{ route('employers.index') }}">Employers</a>
+                <a href="{{ route('jobs.search') }}">Search</a>
             </div>
 
             @auth
@@ -58,5 +61,6 @@
         </main>
     </div>
 
+    @livewireScripts
 </body>
 </html>
