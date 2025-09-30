@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use App\Http\Requests\JobRequest;
 
 class JobController extends Controller
 {
@@ -39,18 +40,9 @@ class JobController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(JobRequest $request)
     {
-        $attributes = $request->validate([
-            'title' => ['required'],
-            'salary' => ['required'],
-            'location' => ['required'],
-            'description' => ['nullable'],
-            'schedule' => ['required', Rule::in(['Part Time', 'Full Time'])],
-            'url' => ['required', 'active_url'],
-            'tags' => ['nullable'],
-        ]);
-
+        $attributes = $request->validated();
         $attributes['featured'] = $request->has('featured');
 
         $job = Auth::user()->employer->jobs()->create(Arr::except($attributes, 'tags'));
@@ -83,18 +75,9 @@ class JobController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Job $job)
+    public function update(JobRequest $request, Job $job)
     {
-        $attributes = $request->validate([
-            'title' => ['required'],
-            'salary' => ['required'],
-            'location' => ['required'],
-            'description' => ['nullable'],
-            'schedule' => ['required', Rule::in(['Part Time', 'Full Time'])],
-            'url' => ['required', 'active_url'],
-            'tags' => ['nullable'],
-        ]);
-
+        $attributes = $request->validated();
         $attributes['featured'] = $request->has('featured');
 
         $job->update(Arr::except($attributes, 'tags'));
@@ -104,7 +87,7 @@ class JobController extends Controller
             $tagNames = array_filter(array_map('trim', explode(',', $attributes['tags'])));
             $tagIds = [];
             foreach ($tagNames as $tagName) {
-                $tag = \App\Models\Tag::firstOrCreate(['name' => $tagName]);
+                $tag = Tag::firstOrCreate(['name' => $tagName]);
                 $tagIds[] = $tag->id;
             }
             $job->tags()->sync($tagIds);
