@@ -14,7 +14,9 @@ class SearchJobs extends Component
 
     public function render()
     {
-        $jobs = $this->search ? Job::query()
+
+        $execSearch = strlen($this->search) >= 3;
+        $jobs = $execSearch ? Job::query()
             ->with(['employer', 'tags'])
             ->orderBy('title')
             ->where('title', 'LIKE', '%'. $this->search .'%')
@@ -22,6 +24,7 @@ class SearchJobs extends Component
 
         return view('livewire.search-jobs', [
             'jobs' => $jobs,
+            'execSearch' => $execSearch
         ]);
     }
 }
