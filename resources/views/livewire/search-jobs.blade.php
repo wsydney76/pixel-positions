@@ -1,20 +1,20 @@
 <div>
 
-    {{ $sql }}
+    {{--{{ $sql }}--}}
 
     <div wire:ignore class="grid grid-cols-12 gap-4 mb-4 items-end">
         <div class="col-span-2">
             <x-livewire.select
-                :options="$employers"
                 label="Employer"
-                name="employer"/>
+                name="employer"
+                :options="$employers"/>
         </div>
 
         <div class="col-span-2">
             <x-livewire.select
-                :options="$tags"
                 label="Tag"
-                name="tag"/>
+                name="tag"
+                :options="$tags"/>
         </div>
 
         <div class="col-span-4">
@@ -26,12 +26,12 @@
 
         <div class="col-span-2">
             <x-livewire.select
+                label="Sort"
+                name="sort"
                 :options="[
                     ['label' => 'Title (A-Z)', 'value' => 'title'],
                     ['label' => 'Latest', 'value' => 'latest']
-                ]"
-                label="Sort"
-                name="sort"/>
+                ]"/>
         </div>
 
         <div class="col-span-2">
