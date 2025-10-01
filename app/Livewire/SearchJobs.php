@@ -61,32 +61,14 @@ class SearchJobs extends Component
         ]);
     }
 
-    public function updatedSearch(): void
-    {
-        $this->resetPage();
-    }
-
-    public function updatedEmployerId(): void
-    {
-        $this->resetPage();
-    }
-
-    public function updatedTagId(): void
-    {
-        $this->resetPage();
-    }
-
-    public function updatedSort(): void
+    public function updated($propertyName): void
     {
         $this->resetPage();
     }
 
     public function resetFilters(): void
     {
-        $this->search = '';
-        $this->employerId = '';
-        $this->tagId = '';
-        $this->sort = 'title';
+        $this->reset();
         $this->resetPage();
     }
 }
