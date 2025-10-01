@@ -6,9 +6,9 @@
     </a>
 
     <div class="flex-1 flex flex-col">
-        <a href="{{ route('employers.show', $job->employer) }}" class="self-start text-sm text-gray-900 dark:text-gray-400 hover:text-blue-600 transition-colors">
-                {{ $job->employer->name ?? 'N/A' }}
-        </a>
+        <div>
+            <x-employer :employer="$job->employer"></x-employer>
+        </div>
 
         <h3 class="font-bold text-xl mt-3 hover:text-blue-600 transition-colors text-black dark:text-white">
             <a href="{{ route('jobs.show', $job) }}">

@@ -15,8 +15,6 @@ class SearchJobs extends Component
     public $search = '';
     public $employerId = '';
     public $tagId = '';
-    public $employers;
-    public $tags;
     protected $queryString = [
         'search' => ['except' => ''],
         'employerId' => ['except' => ''],
@@ -25,8 +23,6 @@ class SearchJobs extends Component
 
     public function render(): mixed
     {
-        $this->employers = Employer::orderBy('name')->get();
-        $this->tags = Tag::orderBy('name')->get();
 
         $jobsQuery = Job::query()
             ->with(['employer', 'tags'])
@@ -52,11 +48,9 @@ class SearchJobs extends Component
         $jobs = $jobsQuery->paginate(8);
 
         return view('livewire.search-jobs', [
+            'employers' => Employer::orderBy('name')->get(),
+            'tags' => Tag::orderBy('name')->get(),
             'jobs' => $jobs,
-            'employers' => $this->employers,
-            'employerId' => $this->employerId,
-            'tags' => $this->tags,
-            'tagId' => $this->tagId,
         ]);
     }
 

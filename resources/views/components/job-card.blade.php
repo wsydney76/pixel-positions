@@ -2,9 +2,7 @@
 
 <x-panel class="flex flex-col text-center">
     <div class="self-start text-sm text-black dark:text-white hover:text-blue-600 ">
-        <a href="{{ route('employers.show', $job->employer) }}">
-            {{ $job->employer->name ?? 'N/A' }}
-        </a>
+        <x-employer :employer="$job->employer"></x-employer>
     </div>
 
     <a  href="{{ route('jobs.show', $job) }}" class="group py-8">
