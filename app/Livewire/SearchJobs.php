@@ -16,12 +16,22 @@ class SearchJobs extends Component
     public $employerId = '';
     public $tagId = '';
     public $sort = 'title';
+
+    public $employers;
+    public $tags;
+
     protected $queryString = [
         'employerId' => ['except' => ''],
         'tagId' => ['except' => ''],
         'search' => ['except' => ''],
         'sort' => ['except' => 'title'],
     ];
+
+    public function mount()
+    {
+        $this->employers = Employer::orderBy('name')->get();
+        $this->tags = Tag::orderBy('name')->get();
+    }
 
     public function render(): mixed
     {
@@ -54,8 +64,8 @@ class SearchJobs extends Component
         $jobs = $jobsQuery->paginate(8);
 
         return view('livewire.search-jobs', [
-            'employers' => Employer::orderBy('name')->get(),
-            'tags' => Tag::orderBy('name')->get(),
+            'employers' => $this->employers,
+            'tags' => $this->tags,
             'jobs' => $jobs,
             'sql' => $jobsQuery->toRawSql()
         ]);
@@ -68,7 +78,7 @@ class SearchJobs extends Component
 
     public function resetFilters(): void
     {
-        $this->reset();
+        $this->reset(['search', 'employerId', 'tagId', 'sort']);
         $this->resetPage();
     }
 }
