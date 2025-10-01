@@ -5,7 +5,6 @@ namespace App\Livewire;
 use App\Models\Employer;
 use App\Models\Job;
 use App\Models\Tag;
-use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class SearchJobs extends Component
@@ -29,13 +28,16 @@ class SearchJobs extends Component
 
         $execSearch = strlen($this->search) >= 3 || $this->employerId || $this->tagId;
 
-        $jobsQuery = $execSearch ? Job::query()
+        $jobsQuery = Job::query()
             ->with(['employer', 'tags'])
-            ->orderBy('title')
-            ->where(function($q) {
-                $q->where('title', 'LIKE', '%'. $this->search .'%')
-                  ->orWhere('description', 'LIKE', '%'. $this->search .'%');
-            }) : Job::query()->whereRaw('0=1');
+            ->orderBy('title');
+
+        if (strlen($this->search) >= 3) {
+            $jobsQuery->where(function($q) {
+                $q->where('title', 'like', '%' . $this->search . '%')
+                  ->orWhere('description', 'like', '%' . $this->search . '%');
+            });
+        }
 
         if ($this->employerId) {
             $jobsQuery->where('employer_id', $this->employerId);
@@ -47,6 +49,7 @@ class SearchJobs extends Component
             });
         }
 
+
         $jobs = $execSearch ? $jobsQuery->get() : collect();
 
         return view('livewire.search-jobs', [
@@ -57,5 +60,12 @@ class SearchJobs extends Component
             'tags' => $this->tags,
             'tagId' => $this->tagId,
         ]);
+    }
+
+    public function resetFilters()
+    {
+        $this->search = '';
+        $this->employerId = '';
+        $this->tagId = '';
     }
 }

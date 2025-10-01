@@ -12,4 +12,4 @@
     }
 @endphp
 
-<a href="/tags/{{ strtolower($tag->name) }}" class="{{ $classes }}">{{ strtoupper($tag->name) }}</a>
+<a href="{{ route('jobs.search', ['tagId' => $tag->id]) }}" class="{{ $classes }}">{{ strtoupper($tag->name) }}</a>
