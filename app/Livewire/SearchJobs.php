@@ -5,12 +5,14 @@ namespace App\Livewire;
 use App\Models\Job;
 use Illuminate\Support\Collection;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class SearchJobs extends Component
 {
 
     public $search = '';
+    protected $queryString = [
+        'search' => ['except' => ''],
+    ];
 
     public function render()
     {
