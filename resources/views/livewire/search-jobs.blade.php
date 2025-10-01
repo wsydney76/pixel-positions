@@ -3,43 +3,41 @@
     {{--{{ $sql }}--}}
 
     <div wire:ignore class="grid grid-cols-12 gap-4 mb-4 items-end">
-        <div class="col-span-2">
-            <x-livewire.select
-                label="Employer"
-                name="employer"
-                :options="$employers"/>
-        </div>
 
-        <div class="col-span-2">
-            <x-livewire.select
-                label="Tag"
-                name="tag"
-                :options="$tags"/>
-        </div>
 
-        <div class="col-span-4">
-            <x-livewire.input
-                label="Search title/description"
-                name="search"
-                placeholder="Search jobs... (min. 3 char.)"/>
-        </div>
+        <x-livewire.select
+            class="col-span-2"
+            label="Employer"
+            name="employer"
+            :options="$employers"/>
 
-        <div class="col-span-2">
-            <x-livewire.select
-                label="Sort"
-                name="sort"
-                :options="[
+        <x-livewire.select
+            class="col-span-2"
+            label="Tag"
+            name="tag"
+            :options="$tags"/>
+
+        <x-livewire.input
+            class="col-span-4"
+            label="Search title/description"
+            name="search"
+            placeholder="Search jobs... (min. 3 char.)"/>
+
+        <x-livewire.select
+            class="col-span-2"
+            label="Sort"
+            name="sort"
+            :options="[
                     ['label' => 'Title (A-Z)', 'value' => 'title'],
                     ['label' => 'Latest', 'value' => 'latest']
                 ]"/>
-        </div>
 
-        <div class="col-span-2">
-            <x-livewire.button
-                label="Reset"
-                action="resetFilters"
-            />
-        </div>
+        <x-livewire.button
+            class="col-span-2"
+            label="Reset"
+            action="resetFilters"
+        />
+
     </div>
 
 

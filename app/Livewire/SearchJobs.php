@@ -31,7 +31,7 @@ class SearchJobs extends Component
         'sort' => ['except' => 'title'],
     ];
 
-    public function mount()
+    public function mount(): void
     {
         $this->employers = Employer::orderBy('name')->get()
             ->map(fn($e) => ['label' => $e->name, 'value' => $e->name])
