@@ -13,9 +13,9 @@ class EmployerController extends Controller
         return view('employers.index', compact('employers'));
     }
 
-    public function show(\App\Models\Employer $employer)
+
+    public function edit(Employer $employer)
     {
-        $employer->load('jobs');
-        return view('employers.show', compact('employer'));
+        return view('employers.edit', compact('employer'));
     }
 }
