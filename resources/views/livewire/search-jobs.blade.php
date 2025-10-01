@@ -2,19 +2,16 @@
 
     {{--{{ $sql }}--}}
 
-    {{-- TODO: make resonsive --}}
-
-    <div wire:ignore class="grid grid-cols-12 gap-4 mb-4 items-end">
-
+    <div wire:ignore class="grid sm:grid-cols-12 gap-4 mb-4 items-end">
 
         <x-livewire.select
-            class="col-span-2"
+            class="col-span-4 md:col-span-2"
             label="Employer"
             name="employer"
             :options="$employers"/>
 
         <x-livewire.select
-            class="col-span-2"
+            class="col-span-4 md:col-span-2"
             label="Tag"
             name="tag"
             :options="$tags"/>
@@ -26,7 +23,7 @@
             placeholder="Search jobs... (min. 3 char.)"/>
 
         <x-livewire.select
-            class="col-span-2"
+            class="col-span-4 md:col-span-2"
             label="Sort"
             name="sort"
             :options="[
@@ -35,7 +32,7 @@
                 ]"/>
 
         <x-livewire.button
-            class="col-span-2"
+            class="mt-4 col-span-4 md:col-span-2"
             label="Reset"
             action="resetFilters"
         />
