@@ -4,47 +4,41 @@
 
     <div wire:ignore class="grid grid-cols-12 gap-4 mb-4 items-end">
         <div class="col-span-2">
-            <label for="employer" class="block mb-2 font-semibold">Employer</label>
-            <select id="employer" class="rounded-lg bg-black/10 border px-3 py-2 text-sm w-full"
-                    wire:model.live="employer">
-                <option value="">All employers</option>
-                @foreach($employers as $employer)
-                    <option value="{{ $employer }}">{{ $employer }}</option>
-                @endforeach
-            </select>
+            <x-livewire.select
+                :options="$employers"
+                label="Employer"
+                name="employer"/>
         </div>
+
         <div class="col-span-2">
-            <label for="tag" class="block mb-2 font-semibold">Tag</label>
-            <select id="tag" class="rounded-lg bg-black/10 border px-3 py-2 text-sm w-full"
-                    wire:model.live="tag">
-                <option value="">All tags</option>
-                @foreach($tags as $tag)
-                    <option value="{{ $tag }}">{{ ucwords($tag) }}</option>
-                @endforeach
-            </select>
+            <x-livewire.select
+                :options="$tags"
+                label="Tag"
+                name="tag"/>
         </div>
+
         <div class="col-span-4">
-            <label for="search" class="block mb-2 font-semibold">Search title/description</label>
-            <input id="search"
-                   class="rounded-lg bg-black/10 bg-border-black/10 bg:bg-white/10 border bg:border-white/10 px-3 py-2 text-sm w-full"
-                   wire:model.live.debounce.500ms="search"
-                   type="text"
-                   placeholder="Search jobs... (min. 3 characters)"/>
+            <x-livewire.input
+                label="Search title/description"
+                name="search"
+                placeholder="Search jobs... (min. 3 char.)"/>
         </div>
+
         <div class="col-span-2">
-            <label for="sort" class="block mb-2 font-semibold">Sort</label>
-            <select id="sort"
-                    class="rounded-lg bg-black/10 border px-3 py-2 text-sm w-full"
-                    wire:model.live="sort">
-                <option value="title">Title (A-Z)</option>
-                <option value="latest">Latest</option>
-            </select>
+            <x-livewire.select
+                :options="[
+                    ['label' => 'Title (A-Z)', 'value' => 'title'],
+                    ['label' => 'Latest', 'value' => 'latest']
+                ]"
+                label="Sort"
+                name="sort"/>
         </div>
+
         <div class="col-span-2">
-            <button wire:click="resetFilters"
-                    class="cursor-pointer bg-black hover:bg-black/70 text-white font-semibold px-3 py-2 text-sm rounded-lg w-full transition-colors">
-                Reset
-            </button>
+            <x-livewire.button
+                label="Reset"
+                action="resetFilters"
+            />
         </div>
     </div>
 

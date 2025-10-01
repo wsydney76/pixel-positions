@@ -19,6 +19,10 @@ class SearchJobs extends Component
 
     public $employers;
     public $tags;
+    public $sortOptions = [
+        ['label' => 'Title (A-Z)', 'value' => 'title'],
+        ['label' => 'Latest', 'value' => 'latest'],
+    ];
 
     protected $queryString = [
         'employer' => ['except' => ''],
@@ -29,8 +33,13 @@ class SearchJobs extends Component
 
     public function mount()
     {
-        $this->employers = Employer::orderBy('name')->pluck('name');
-        $this->tags = Tag::orderBy('name')->pluck('name');
+        $this->employers = Employer::orderBy('name')->get()
+            ->map(fn($e) => ['label' => $e->name, 'value' => $e->name])
+            ->prepend(['label' => 'All Employers', 'value' => '']);
+
+        $this->tags = Tag::orderBy('name')->get()
+            ->map(fn($t) => ['label' => strtolower($t->name), 'value' => $t->name])
+            ->prepend(['label' => 'All Tags', 'value' => '']);
     }
 
     public function render(): mixed
@@ -66,8 +75,6 @@ class SearchJobs extends Component
         $jobs = $jobsQuery->paginate(8);
 
         return view('livewire.search-jobs', [
-            'employers' => $this->employers,
-            'tags' => $this->tags,
             'jobs' => $jobs,
             'sql' => $jobsQuery->toRawSql()
         ]);
