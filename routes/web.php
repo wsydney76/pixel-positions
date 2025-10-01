@@ -44,3 +44,4 @@ Route::get('/employers/{employer}/edit', [EmployerController::class, 'edit'])
     ->name('employers.edit')
     ->middleware('auth')
     ->can('edit', 'employer');
+Route::patch('/employers/{employer}', [App\Http\Controllers\EmployerController::class, 'update'])->name('employers.update');
