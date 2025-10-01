@@ -11,9 +11,13 @@ Route::get('/', [JobController::class, 'index'])
 
 Route::get('/jobs/create', [JobController::class, 'create'])
     ->middleware('auth');
+
 Route::post('/jobs', [JobController::class, 'store'])
     ->middleware('auth');
-Route::view('/jobs/search', 'jobs.search')->name('jobs.search');
+
+Route::view('/jobs/search', 'jobs.search')
+    ->name('jobs.search');
+
 Route::get('/jobs/{job}', [JobController::class, 'show'])
     ->name('jobs.show');
 
