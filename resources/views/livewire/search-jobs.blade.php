@@ -1,4 +1,7 @@
 <div>
+
+    {{--{{ $sql }}--}}
+
     <div wire:ignore class="grid grid-cols-7 gap-4 mb-4 items-end">
         <div class="col-span-2">
             <label for="employerId" class="block mb-2 font-semibold">Employer</label>

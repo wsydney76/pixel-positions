@@ -16,9 +16,9 @@ class SearchJobs extends Component
     public $employerId = '';
     public $tagId = '';
     protected $queryString = [
-        'search' => ['except' => ''],
         'employerId' => ['except' => ''],
         'tagId' => ['except' => ''],
+        'search' => ['except' => ''],
     ];
 
     public function render(): mixed
@@ -27,13 +27,6 @@ class SearchJobs extends Component
         $jobsQuery = Job::query()
             ->with(['employer', 'tags'])
             ->orderBy('title');
-
-        if (strlen($this->search) >= 3) {
-            $jobsQuery->where(function($q) {
-                $q->where('title', 'like', '%' . $this->search . '%')
-                  ->orWhere('description', 'like', '%' . $this->search . '%');
-            });
-        }
 
         if ($this->employerId) {
             $jobsQuery->where('employer_id', $this->employerId);
@@ -45,12 +38,20 @@ class SearchJobs extends Component
             });
         }
 
+        if (strlen($this->search) >= 3) {
+            $jobsQuery->where(function($q) {
+                $q->where('title', 'like', '%' . $this->search . '%')
+                    ->orWhere('description', 'like', '%' . $this->search . '%');
+            });
+        }
+
         $jobs = $jobsQuery->paginate(8);
 
         return view('livewire.search-jobs', [
             'employers' => Employer::orderBy('name')->get(),
             'tags' => Tag::orderBy('name')->get(),
             'jobs' => $jobs,
+            'sql' => $jobsQuery->toRawSql()
         ]);
     }
 

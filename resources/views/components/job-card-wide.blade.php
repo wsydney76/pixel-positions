@@ -1,13 +1,12 @@
 @props(['job'])
 
 <x-panel class="flex gap-x-6">
-    <a href="{{ route('jobs.show', $job) }}">
-        <x-employer-logo :employer="$job->employer" />
-    </a>
+
+    <x-employer-logo :employer="$job->employer"/>
 
     <div class="flex-1 flex flex-col">
         <div>
-            <x-employer :employer="$job->employer"></x-employer>
+            <x-employer :employer="$job->employer"/>
         </div>
 
         <h3 class="font-bold text-xl mt-3 hover:text-blue-600 transition-colors text-black dark:text-white">
@@ -22,7 +21,7 @@
     <div class="flex flex-wrap gap-2">
         @foreach($job->tags as $tag)
             <div>
-                <x-tag :$tag />
+                <x-tag :$tag/>
             </div>
         @endforeach
     </div>
