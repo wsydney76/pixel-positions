@@ -13,24 +13,24 @@ class SearchJobs extends Component
     use WithPagination;
 
     public $search = '';
-    public $employerName = '';
-    public $tagName = '';
+    public $employer = '';
+    public $tag = '';
     public $sort = 'title';
 
     public $employers;
     public $tags;
 
     protected $queryString = [
-        'employerName' => ['except' => ''],
-        'tagName' => ['except' => ''],
+        'employer' => ['except' => ''],
+        'tag' => ['except' => ''],
         'search' => ['except' => ''],
         'sort' => ['except' => 'title'],
     ];
 
     public function mount()
     {
-        $this->employers = Employer::orderBy('name')->get();
-        $this->tags = Tag::orderBy('name')->get();
+        $this->employers = Employer::orderBy('name')->pluck('name');
+        $this->tags = Tag::orderBy('name')->pluck('name');
     }
 
     public function render(): mixed
@@ -44,15 +44,15 @@ class SearchJobs extends Component
             $jobsQuery->orderBy('title');
         }
 
-        if ($this->employerName) {
+        if ($this->employer) {
             $jobsQuery->whereHas('employer', function($q) {
-                $q->where('name', $this->employerName);
+                $q->where('name', $this->employer);
             });
         }
 
-        if ($this->tagName) {
+        if ($this->tag) {
             $jobsQuery->whereHas('tags', function($q) {
-                $q->where('tags.name', $this->tagName);
+                $q->where('tags.name', $this->tag);
             });
         }
 
@@ -80,7 +80,7 @@ class SearchJobs extends Component
 
     public function resetFilters(): void
     {
-        $this->reset(['search', 'employerName', 'tagName', 'sort']);
+        $this->reset(['search', 'employer', 'tag', 'sort']);
         $this->resetPage();
     }
 }

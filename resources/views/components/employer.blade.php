@@ -12,4 +12,4 @@
     }
 @endphp
 
-<a href="{{ route('jobs.search', ['employerName' => $employer->name]) }}" class="{{ $classes }}">{{ $employer->name }}</a>
+<a href="{{ route('jobs.search', ['employer' => $employer->name]) }}" class="{{ $classes }}">{{ $employer->name }}</a>
