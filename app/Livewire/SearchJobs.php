@@ -13,16 +13,16 @@ class SearchJobs extends Component
     use WithPagination;
 
     public $search = '';
-    public $employerId = '';
-    public $tagId = '';
+    public $employerName = '';
+    public $tagName = '';
     public $sort = 'title';
 
     public $employers;
     public $tags;
 
     protected $queryString = [
-        'employerId' => ['except' => ''],
-        'tagId' => ['except' => ''],
+        'employerName' => ['except' => ''],
+        'tagName' => ['except' => ''],
         'search' => ['except' => ''],
         'sort' => ['except' => 'title'],
     ];
@@ -44,13 +44,15 @@ class SearchJobs extends Component
             $jobsQuery->orderBy('title');
         }
 
-        if ($this->employerId) {
-            $jobsQuery->where('employer_id', $this->employerId);
+        if ($this->employerName) {
+            $jobsQuery->whereHas('employer', function($q) {
+                $q->where('name', $this->employerName);
+            });
         }
 
-        if ($this->tagId) {
+        if ($this->tagName) {
             $jobsQuery->whereHas('tags', function($q) {
-                $q->where('tags.id', $this->tagId);
+                $q->where('tags.name', $this->tagName);
             });
         }
 
@@ -78,7 +80,7 @@ class SearchJobs extends Component
 
     public function resetFilters(): void
     {
-        $this->reset(['search', 'employerId', 'tagId', 'sort']);
+        $this->reset(['search', 'employerName', 'tagName', 'sort']);
         $this->resetPage();
     }
 }

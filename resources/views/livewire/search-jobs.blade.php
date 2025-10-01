@@ -4,22 +4,22 @@
 
     <div wire:ignore class="grid grid-cols-12 gap-4 mb-4 items-end">
         <div class="col-span-2">
-            <label for="employerId" class="block mb-2 font-semibold">Employer</label>
-            <select id="employerId" class="rounded-lg bg-black/10 border px-3 py-2 text-sm w-full"
-                    wire:model.live="employerId">
+            <label for="employerName" class="block mb-2 font-semibold">Employer</label>
+            <select id="employerName" class="rounded-lg bg-black/10 border px-3 py-2 text-sm w-full"
+                    wire:model.live="employerName">
                 <option value="">All employers</option>
                 @foreach($employers as $employer)
-                    <option value="{{ $employer->id }}">{{ $employer->name }}</option>
+                    <option value="{{ $employer->name }}">{{ $employer->name }}</option>
                 @endforeach
             </select>
         </div>
         <div class="col-span-2">
-            <label for="tagId" class="block mb-2 font-semibold">Tag</label>
-            <select id="tagId" class="rounded-lg bg-black/10 border px-3 py-2 text-sm w-full"
-                    wire:model.live="tagId">
+            <label for="tagName" class="block mb-2 font-semibold">Tag</label>
+            <select id="tagName" class="rounded-lg bg-black/10 border px-3 py-2 text-sm w-full"
+                    wire:model.live="tagName">
                 <option value="">All tags</option>
                 @foreach($tags as $tag)
-                    <option value="{{ $tag->id }}">{{ ucwords($tag->name) }}</option>
+                    <option value="{{ $tag->name }}">{{ ucwords($tag->name) }}</option>
                 @endforeach
             </select>
         </div>
