@@ -15,18 +15,24 @@ class SearchJobs extends Component
     public $search = '';
     public $employerId = '';
     public $tagId = '';
+    public $sort = 'title';
     protected $queryString = [
         'employerId' => ['except' => ''],
         'tagId' => ['except' => ''],
         'search' => ['except' => ''],
+        'sort' => ['except' => 'title'],
     ];
 
     public function render(): mixed
     {
-
         $jobsQuery = Job::query()
-            ->with(['employer', 'tags'])
-            ->orderBy('title');
+            ->with(['employer', 'tags']);
+
+        if ($this->sort === 'latest') {
+            $jobsQuery->orderByDesc('created_at');
+        } else {
+            $jobsQuery->orderBy('title');
+        }
 
         if ($this->employerId) {
             $jobsQuery->where('employer_id', $this->employerId);
@@ -70,11 +76,17 @@ class SearchJobs extends Component
         $this->resetPage();
     }
 
+    public function updatedSort(): void
+    {
+        $this->resetPage();
+    }
+
     public function resetFilters(): void
     {
         $this->search = '';
         $this->employerId = '';
         $this->tagId = '';
+        $this->sort = 'title';
         $this->resetPage();
     }
 }
