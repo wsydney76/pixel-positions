@@ -10,24 +10,35 @@ class SearchJobs extends Component
 {
 
     public $search = '';
+    public $employerId = '';
+    public $employers;
     protected $queryString = [
         'search' => ['except' => ''],
+        'employerId' => ['except' => ''],
     ];
 
     public function render()
     {
-
-        $execSearch = strlen($this->search) >= 3;
-        $jobs = $execSearch ? Job::query()
+        $this->employers = \App\Models\Employer::orderBy('name')->get();
+        $execSearch = strlen($this->search) >= 3 || $this->employerId;
+        $jobsQuery = $execSearch ? Job::query()
             ->with(['employer', 'tags'])
             ->orderBy('title')
-            ->where('title', 'LIKE', '%'. $this->search .'%')
-            ->orWhere('description', 'LIKE', '%'. $this->search .'%')
-            ->get() : Collection::make();
+            ->where(function($q) {
+                $q->where('title', 'LIKE', '%'. $this->search .'%')
+                  ->orWhere('description', 'LIKE', '%'. $this->search .'%');
+            }) : Job::query()->whereRaw('0=1');
 
+        if ($this->employerId) {
+            $jobsQuery->where('employer_id', $this->employerId);
+        }
+
+        $jobs = $execSearch ? $jobsQuery->get() : collect();
         return view('livewire.search-jobs', [
             'jobs' => $jobs,
-            'execSearch' => $execSearch
+            'execSearch' => $execSearch,
+            'employers' => $this->employers,
+            'employerId' => $this->employerId,
         ]);
     }
 }
