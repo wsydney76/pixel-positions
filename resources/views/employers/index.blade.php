@@ -8,9 +8,9 @@
                     <div class="flex space-x-4 items-center">
                         <x-employer-logo :employer="$employer" :width="64"/>
                         <a href="{{ route('jobs.search', ['employer' => $employer->name]) }}" class="text-lg font-semibold">{{ $employer->name }}</a>
-                        @if($employer->user_id === auth()->id())
+                        @can('edit', $employer)
                             <a href="{{ route('employers.edit', $employer) }}" class="ml-2 text-blue-500 underline text-sm">Edit</a>
-                        @endif
+                        @endcan
                     </div>
                 </x-panel>
             @empty

@@ -40,4 +40,7 @@ Route::middleware('guest')->group(function() {
 Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth');
 
 Route::get('/employers', [EmployerController::class, 'index'])->name('employers.index');
-Route::get('/employers/{employer}/edit', [EmployerController::class, 'edit'])->name('employers.edit')->middleware('auth');
+Route::get('/employers/{employer}/edit', [EmployerController::class, 'edit'])
+    ->name('employers.edit')
+    ->middleware('auth')
+    ->can('edit', 'employer');
