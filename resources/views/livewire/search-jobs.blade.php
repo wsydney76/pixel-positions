@@ -7,6 +7,13 @@
         @endforeach
     </select>
 
+    <select class="rounded-xl bg-black/10 border px-5 py-4 w-full mb-4" wire:model.live="tagId">
+        <option value="">All tags</option>
+        @foreach($tags as $tag)
+            <option value="{{ $tag->id }}">{{ ucwords($tag->name) }}</option>
+        @endforeach
+    </select>
+
     <input class="rounded-xl bg-black/10 bg-border-black/10 bg:bg-white/10 border bg:border-white/10 px-5 py-4 w-full"
            wire:model.live="search"
            type="text"
