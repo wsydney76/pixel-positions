@@ -6,9 +6,11 @@ use App\Models\Employer;
 use App\Models\Job;
 use App\Models\Tag;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class SearchJobs extends Component
 {
+    use WithPagination;
 
     public $search = '';
     public $employerId = '';
@@ -49,8 +51,7 @@ class SearchJobs extends Component
             });
         }
 
-
-        $jobs = $execSearch ? $jobsQuery->get() : collect();
+        $jobs = $execSearch ? $jobsQuery->paginate(8) : collect();
 
         return view('livewire.search-jobs', [
             'jobs' => $jobs,
@@ -67,5 +68,6 @@ class SearchJobs extends Component
         $this->search = '';
         $this->employerId = '';
         $this->tagId = '';
+        $this->resetPage();
     }
 }

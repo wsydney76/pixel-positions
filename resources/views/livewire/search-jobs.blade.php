@@ -43,6 +43,9 @@
                 <x-job-card-wide :$job/>
             @endforeach
         </div>
+        <div class="mt-8">
+            {{ $jobs->links() }}
+        </div>
     @else
         <div class="text-gray-500 mt-6">{{ $execSearch ? 'No jobs found' : '' }}</div>
     @endif
