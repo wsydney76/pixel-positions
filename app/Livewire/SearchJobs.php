@@ -55,13 +55,13 @@ class SearchJobs extends Component
 
         if ($this->employer) {
             $jobsQuery->whereHas('employer', function($q) {
-                $q->where('name', $this->employer);
+                $q->where('name', '=', $this->employer);
             });
         }
 
         if ($this->tag) {
             $jobsQuery->whereHas('tags', function($q) {
-                $q->where('tags.name', $this->tag);
+                $q->where('name', '=', $this->tag);
             });
         }
 
@@ -80,7 +80,7 @@ class SearchJobs extends Component
         ]);
     }
 
-    public function updated($propertyName): void
+    public function updated(): void
     {
         $this->resetPage();
     }
