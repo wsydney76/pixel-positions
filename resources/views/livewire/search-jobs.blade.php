@@ -1,5 +1,5 @@
 <div>
-    <div class="grid grid-cols-4 gap-4 mb-4 items-end">
+    <div wire:ignore class="grid grid-cols-4 gap-4 mb-4 items-end">
         <div>
             <label for="employerId" class="block mb-2 font-semibold">Employer</label>
             <select id="employerId" class="rounded-xl bg-black/10 border px-5 py-4 w-full"
