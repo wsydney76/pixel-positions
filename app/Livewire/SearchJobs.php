@@ -22,6 +22,7 @@ class SearchJobs extends Component
             ->with(['employer', 'tags'])
             ->orderBy('title')
             ->where('title', 'LIKE', '%'. $this->search .'%')
+            ->orWhere('description', 'LIKE', '%'. $this->search .'%')
             ->get() : Collection::make();
 
         return view('livewire.search-jobs', [

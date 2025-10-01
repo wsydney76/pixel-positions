@@ -29,7 +29,7 @@ Route::delete('/jobs/{job}/destroy', [JobController::class, 'destroy'])
     ->middleware('auth')
     ->can('edit', 'job');
 
-Route::get('/search', SearchController::class);
+/*Route::get('/search', SearchController::class);*/
 Route::get('/tags/{tag:name}', TagController::class);
 
 Route::middleware('guest')->group(function () {
