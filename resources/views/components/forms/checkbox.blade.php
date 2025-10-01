@@ -1,11 +1,11 @@
-@props(['label', 'name'])
+@props(['label', 'name' , 'value' => false])
 
 @php
     $defaults = [
         'type' => 'checkbox',
         'id' => $name,
         'name' => $name,
-        'value' => old($name)
+        'checked' => old($name, $value)
     ];
 @endphp
 
