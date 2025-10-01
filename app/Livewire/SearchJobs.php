@@ -31,7 +31,7 @@ class SearchJobs extends Component
         'sort' => ['except' => 'title'],
     ];
 
-    protected $perPage = 6;
+    public $perPage = 8;
 
     public function mount(): void
     {
