@@ -2,6 +2,8 @@
 
     {{--{{ $sql }}--}}
 
+    {{-- TODO: make resonsive --}}
+
     <div wire:ignore class="grid grid-cols-12 gap-4 mb-4 items-end">
 
 
