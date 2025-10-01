@@ -4,18 +4,21 @@ use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
-use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [JobController::class, 'index'])->name('jobs.index');
+Route::get('/', [JobController::class, 'index'])
+    ->name('jobs.index');
 
-Route::get('/jobs/create', [JobController::class, 'create'])->middleware('auth');
-Route::post('/jobs', [JobController::class, 'store'])->middleware('auth');
-Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
-Route::view('/search', 'jobs.search')->name('jobs.search');
+Route::get('/jobs/create', [JobController::class, 'create'])
+    ->middleware('auth');
+Route::post('/jobs', [JobController::class, 'store'])
+    ->middleware('auth');
+Route::view('/jobs/search', 'jobs.search')->name('jobs.search');
+Route::get('/jobs/{job}', [JobController::class, 'show'])
+    ->name('jobs.show');
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function() {
     Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])
         ->can('edit', 'job')
         ->name('jobs.edit');
@@ -40,8 +43,12 @@ Route::middleware('guest')->group(function() {
 Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth');
 
 Route::get('/employers', [EmployerController::class, 'index'])->name('employers.index');
-Route::get('/employers/{employer}/edit', [EmployerController::class, 'edit'])
-    ->name('employers.edit')
-    ->middleware('auth')
-    ->can('edit', 'employer');
-Route::patch('/employers/{employer}', [App\Http\Controllers\EmployerController::class, 'update'])->name('employers.update');
+
+Route::middleware('auth')->group(function() {
+    Route::get('/employers/{employer}/edit', [EmployerController::class, 'edit'])
+        ->can('edit', 'employer')
+        ->name('employers.edit');
+    Route::patch('/employers/{employer}', [EmployerController::class, 'update'])
+        ->can('edit', 'employer')
+        ->name('employers.update');
+});
