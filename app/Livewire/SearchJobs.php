@@ -31,6 +31,8 @@ class SearchJobs extends Component
         'sort' => ['except' => 'title'],
     ];
 
+    protected $perPage = 6;
+
     public function mount(): void
     {
         $this->employers = Employer::orderBy('name')->get()
@@ -44,39 +46,37 @@ class SearchJobs extends Component
 
     public function render(): mixed
     {
-        $jobsQuery = Job::query()
+        $query = Job::query()
             ->with(['employer', 'tags']);
 
         if ($this->sort === 'latest') {
-            $jobsQuery->orderByDesc('created_at');
+            $query->orderByDesc('created_at');
         } else {
-            $jobsQuery->orderBy('title');
+            $query->orderBy('title');
         }
 
         if ($this->employer) {
-            $jobsQuery->whereHas('employer', function($q) {
+            $query->whereHas('employer', function($q) {
                 $q->where('name', '=', $this->employer);
             });
         }
 
         if ($this->tag) {
-            $jobsQuery->whereHas('tags', function($q) {
+            $query->whereHas('tags', function($q) {
                 $q->where('name', '=', $this->tag);
             });
         }
 
         if (strlen($this->search) >= 3) {
-            $jobsQuery->where(function($q) {
+            $query->where(function($q) {
                 $q->where('title', 'like', '%' . $this->search . '%')
                     ->orWhere('description', 'like', '%' . $this->search . '%');
             });
         }
 
-        $jobs = $jobsQuery->paginate(8);
-
         return view('livewire.search-jobs', [
-            'jobs' => $jobs,
-            'sql' => $jobsQuery->toRawSql()
+            'jobs' => $query->paginate($this->perPage),
+            'sql' => $query->toRawSql()
         ]);
     }
 
