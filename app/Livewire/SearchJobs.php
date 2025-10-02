@@ -12,35 +12,91 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use function dd;
 
+/**
+ * Livewire component for searching and filtering jobs.
+ */
 class SearchJobs extends Component
 {
     use WithPagination;
 
+    /**
+     * Selected employer filter.
+     *
+     * @var string
+     */
     #[Url(history: true, except: '')]
     public $employer = '';
 
+    /**
+     * Selected tag filter.
+     *
+     * @var string
+     */
     #[Url(history: true, except: '')]
     public $tag = '';
 
+    /**
+     * Search query string.
+     *
+     * @var string
+     */
     #[Url(as: 'q', history: true, except: '')]
     public $search = '';
 
+    /**
+     * Selected sort option.
+     *
+     * @var string
+     */
     #[Url(history: true, except: 'title')]
     public $sort = 'title';
 
+    /**
+     * List of employers for filter dropdown.
+     *
+     * @var \Illuminate\Support\Collection
+     */
     public $employers;
+
+    /**
+     * List of tags for filter dropdown.
+     *
+     * @var \Illuminate\Support\Collection
+     */
     public $tags;
+
+    /**
+     * Available sort options.
+     *
+     * @var array
+     */
     public $sortOptions = [
         ['label' => 'Title (A-Z)', 'value' => 'title'],
         ['label' => 'Latest', 'value' => 'latest'],
     ];
 
-
+    /**
+     * Number of jobs per page.
+     *
+     * @var int
+     */
     protected $perPage = 8;
+
+    /**
+     * Minimum length for search query to trigger filtering.
+     *
+     * @var int
+     */
     public int $minSearchLength = 3;
 
+    /**
+     * Initialize filter dropdowns with available employers and tags.
+     *
+     * @return void
+     */
     public function mount(): void
     {
+        // Get employers that have jobs and prepare dropdown options.
         $this->employers = Employer::query()
             ->whereHas('jobs')
             ->orderBy('name')
@@ -54,6 +110,7 @@ class SearchJobs extends Component
                 'value' => ''
             ]);
 
+        // Get tags that have jobs and prepare dropdown options.
         $this->tags = Tag::query()
             ->whereHas('jobs')
             ->orderBy('name')
@@ -68,6 +125,11 @@ class SearchJobs extends Component
             ]);
     }
 
+    /**
+     * Render the component view with filtered jobs.
+     *
+     * @return mixed
+     */
     public function render(): mixed
     {
         $query = $this->getQuery();
@@ -79,25 +141,31 @@ class SearchJobs extends Component
     }
 
     /**
+     * Build the jobs query based on filters and search.
+     *
      * @return Builder|_IH_Job_QB
      */
     protected function getQuery(): _IH_Job_QB|Builder
     {
+        // Start query with eager loading employer and tags.
         $query = Job::query()
             ->with(['employer', 'tags']);
 
+        // Filter by employer if selected.
         if ($this->employer) {
             $query->whereHas('employer', function($q) {
                 $q->where('name', '=', $this->employer);
             });
         }
 
+        // Filter by tag if selected.
         if ($this->tag) {
             $query->whereHas('tags', function($q) {
                 $q->where('name', '=', $this->tag);
             });
         }
 
+        // Filter by search term if long enough.
         if (strlen($this->search) >= $this->minSearchLength) {
             $term = "%{$this->search}%";
             $query->where(function($q) use ($term) {
@@ -106,6 +174,7 @@ class SearchJobs extends Component
             });
         }
 
+        // Apply sorting.
         if ($this->sort === 'latest') {
             $query->orderByDesc('created_at');
         } else {
@@ -115,11 +184,21 @@ class SearchJobs extends Component
         return $query;
     }
 
+    /**
+     * Reset pagination when any property is updated.
+     *
+     * @return void
+     */
     public function updated(): void
     {
         $this->resetPage();
     }
 
+    /**
+     * Reset all filters and pagination.
+     *
+     * @return void
+     */
     public function resetFilters(): void
     {
         $this->reset(['employer', 'tag', 'search', 'sort']);
