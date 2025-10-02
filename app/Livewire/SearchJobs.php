@@ -5,6 +5,8 @@ namespace App\Livewire;
 use App\Models\Employer;
 use App\Models\Job;
 use App\Models\Tag;
+use Illuminate\Database\Eloquent\Builder;
+use LaravelIdea\Helper\App\Models\_IH_Job_QB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,6 +25,7 @@ class SearchJobs extends Component
         ['label' => 'Title (A-Z)', 'value' => 'title'],
         ['label' => 'Latest', 'value' => 'latest'],
     ];
+
 
     protected $queryString = [
         'employer' => ['except' => ''],
@@ -45,6 +48,19 @@ class SearchJobs extends Component
     }
 
     public function render(): mixed
+    {
+        $query = $this->getQuery();
+
+        return view('livewire.search-jobs', [
+            'jobs' => $query->paginate($this->perPage),
+            'sql' => $query->toRawSql()
+        ]);
+    }
+
+    /**
+     * @return Builder|_IH_Job_QB
+     */
+    protected function getQuery(): _IH_Job_QB|Builder
     {
         $query = Job::query()
             ->with(['employer', 'tags']);
@@ -73,11 +89,7 @@ class SearchJobs extends Component
                     ->orWhere('description', 'like', '%' . $this->search . '%');
             });
         }
-
-        return view('livewire.search-jobs', [
-            'jobs' => $query->paginate($this->perPage),
-            'sql' => $query->toRawSql()
-        ]);
+        return $query;
     }
 
     public function updated(): void
