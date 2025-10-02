@@ -53,20 +53,6 @@ class SearchJobs extends Component
     public string $sort = 'title';
 
     /**
-     * List of employers for filter dropdown.
-     *
-     * @var Collection
-     */
-    public Collection $employers;
-
-    /**
-     * List of tags for filter dropdown.
-     *
-     * @var Collection
-     */
-    public Collection $tags;
-
-    /**
      * Available sort options.
      *
      * @var array
@@ -75,6 +61,7 @@ class SearchJobs extends Component
         ['label' => 'Title (A-Z)', 'value' => 'title'],
         ['label' => 'Latest', 'value' => 'latest'],
     ];
+
 
     /**
      * Number of jobs per page.
@@ -97,33 +84,7 @@ class SearchJobs extends Component
      */
     public function mount(): void
     {
-        // Get employers that have jobs and prepare dropdown options.
-        $this->employers = Employer::query()
-            ->whereHas('jobs')
-            ->orderBy('name')
-            ->get()
-            ->map(fn($e) => [
-                'label' => $e->name,
-                'value' => $e->name
-            ])
-            ->prepend([
-                'label' => 'All Employers',
-                'value' => ''
-            ]);
-
-        // Get tags that have jobs and prepare dropdown options.
-        $this->tags = Tag::query()
-            ->whereHas('jobs')
-            ->orderBy('name')
-            ->get()
-            ->map(fn($t) => [
-                'label' => strtolower($t->name),
-                'value' => $t->name
-            ])
-            ->prepend([
-                'label' => 'All Tags',
-                'value' => ''
-            ]);
+        // No longer needed: dropdowns are now dynamic in render().
     }
 
     /**
@@ -135,9 +96,14 @@ class SearchJobs extends Component
     {
         $query = $this->getQuery();
 
+        // Get all jobs matching the current filters (without pagination)
+        $jobs = $query->get();
+
         return view('livewire.search-jobs', [
             'jobs' => $query->paginate($this->perPage),
-            'sql' => $query->toRawSql()
+            'sql' => $query->toRawSql(),
+            'employers' => $this->getEmployersForJobs($query, $jobs),
+            'tags' => $this->getTagsForJobs($query, $jobs)
         ]);
     }
 
@@ -183,6 +149,76 @@ class SearchJobs extends Component
         }
 
         return $query;
+    }
+
+    /**
+     * @param Builder|_IH_Job_QB $query
+     * @return Collection
+     */
+    protected function getEmployersForJobs(Builder|_IH_Job_QB $query, Collection $jobs): Collection
+    {
+        // Drilldown: dynamically build employer options
+        if (empty($this->employer)) {
+            // Get employers related to found jobs
+            $employerIds = $jobs->pluck('employer_id')->unique();
+            $employers = Employer::whereIn('id', $employerIds)
+                ->orderBy('name')
+                ->get()
+                ->map(fn($e) => [
+                    'label' => $e->name,
+                    'value' => $e->name
+                ]);
+        } else {
+            // Only show the selected employer
+            $employers = collect([
+                [
+                    'label' => $this->employer,
+                    'value' => $this->employer
+                ]
+            ]);
+        }
+
+        return $employers->prepend([
+            'label' => 'All Employers',
+            'value' => ''
+        ]);
+    }
+
+    /**
+     * @param Builder|_IH_Job_QB $query
+     * @return Collection
+     */
+    protected function getTagsForJobs(Builder|_IH_Job_QB $query, Collection $jobs): Collection
+    {
+        // Drilldown: dynamically build tag options
+        if (empty($this->tag)) {
+            // Get tags related to found jobs
+            $jobIds = $jobs->pluck('id');
+            $tagIds = \DB::table('job_tag')
+                ->whereIn('job_id', $jobIds)
+                ->pluck('tag_id')
+                ->unique();
+            $tags = Tag::whereIn('id', $tagIds)
+                ->orderBy('name')
+                ->get()
+                ->map(fn($t) => [
+                    'label' => strtolower($t->name),
+                    'value' => $t->name
+                ]);
+        } else {
+            // Only show the selected tag
+            $tags = collect([
+                [
+                    'label' => $this->tag,
+                    'value' => $this->tag
+                ]
+            ]);
+        }
+
+        return $tags->prepend([
+            'label' => 'All Tags',
+            'value' => ''
+        ]);
     }
 
     /**

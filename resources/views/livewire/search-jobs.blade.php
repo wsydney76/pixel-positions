@@ -5,8 +5,7 @@
     {{--{{ $sql }}--}}
 
 
-    <div id="filters" wire:ignore class="grid sm:grid-cols-12 gap-4 mb-4 items-end">
-
+    <div id="filters" class="grid sm:grid-cols-12 gap-4 mb-4 items-end">
         <x-livewire.select
             class="col-span-4 md:col-span-2"
             label="Employer"
