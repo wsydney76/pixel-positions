@@ -39,7 +39,8 @@ class SearchJobs extends Component
 
     public function mount(): void
     {
-        $this->employers = Employer::whereHas('jobs')
+        $this->employers = Employer::query()
+            ->whereHas('jobs')
             ->orderBy('name')
             ->get()
             ->map(fn($e) => [
@@ -51,7 +52,8 @@ class SearchJobs extends Component
                 'value' => ''
             ]);
 
-        $this->tags = Tag::whereHas('jobs')
+        $this->tags = Tag::query()
+            ->whereHas('jobs')
             ->orderBy('name')
             ->get()
             ->map(fn($t) => [

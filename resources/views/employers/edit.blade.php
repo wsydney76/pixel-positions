@@ -6,12 +6,10 @@
             @method('PATCH')
             <x-forms.input label="Name" name="name" :value="$employer->name"/>
 
-            <div>
-                Current Logo:
-                <x-employer-logo :employer="$employer" width="120" />
-            </div>
 
-            <x-forms.input label="New Logo" name="logo" type="file" />
+            <x-forms.file label="Logo" name="logo">
+                <x-employer-logo :employer="$employer" width="120" />
+            </x-forms.file>
 
             <x-forms.button>Update Employer</x-forms.button>
         </x-forms.form>
