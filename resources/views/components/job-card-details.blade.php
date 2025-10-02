@@ -4,11 +4,11 @@
 
 <div x-data="{ open: false }" class="mt-2 text-sm">
     <button
-        class="cursor-pointer px-5 py-1 text-xs bg-black/5 whitespace-nowrap hover:bg-black/10 text-black dark:bg-black dark:hover:bg-white/25 dark:text-white rounded-xl font-bold transition-colors"
+        class="cursor-pointer px-5 py-1 text-xs bg-black/5 whitespace-nowrap hover:bg-black/10 text-black dark:bg-black dark:hover:bg-white/25 dark:text-white dark:border dark:border-white/20 rounded-xl font-bold transition-colors"
         @click="open = !open"
-        >Details</button>
+    >Details</button>
 
-    <div class="mt-2 p-2 bg-black/5 rounded-md space-y-2"
+    <div class="mt-2 p-2 bg-black/5 dark:bg-black/40 rounded-md space-y-2"
          x-show="open"
          @click.outside="open = false">
 
