@@ -3,7 +3,7 @@
     <x-page-heading>Search Jobs</x-page-heading>
     {{--{{ $sql }}--}}
 
-    <div wire:ignore class="grid sm:grid-cols-12 gap-4 mb-4 items-end">
+    <div id="filters" wire:ignore class="grid sm:grid-cols-12 gap-4 mb-4 items-end">
 
         <x-livewire.select
             class="col-span-4 md:col-span-2"
@@ -41,18 +41,18 @@
 
     </div>
 
-
     @if($jobs->count())
-        <div class="mt-6 space-y-6">
+        <div id="results" class="mt-6 space-y-6">
             @foreach($jobs as $job)
                 <x-job-card-wide :$job/>
             @endforeach
         </div>
         <div class="mt-8">
-            {{ $jobs->links() }}
+            {{ $jobs->links(data: ['scrollTo' => '#filters']) }}
         </div>
     @else
         <div class="text-gray-500 mt-6">No jobs found</div>
     @endif
+
 
 </div>

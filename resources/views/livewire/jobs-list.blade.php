@@ -6,7 +6,7 @@
             @endforeach
         </div>
         <div class="mt-6">
-            {{ $jobs->links() }}
+            {{ $jobs->links(data: ['scrollTo' => '#recent-jobs']) }}
         </div>
     @else
         <div class="text-gray-500">No jobs found.</div>
