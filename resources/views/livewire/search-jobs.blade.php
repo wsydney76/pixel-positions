@@ -1,7 +1,9 @@
 <div>
 
     <x-page-heading>Search Jobs</x-page-heading>
+
     {{--{{ $sql }}--}}
+
 
     <div id="filters" wire:ignore class="grid sm:grid-cols-12 gap-4 mb-4 items-end">
 
@@ -40,6 +42,7 @@
         />
 
     </div>
+
 
     @if($jobs->count())
         <div id="results" class="mt-6 space-y-6">

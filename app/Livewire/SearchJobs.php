@@ -39,7 +39,8 @@ class SearchJobs extends Component
 
     public function mount(): void
     {
-        $this->employers = Employer::orderBy('name')
+        $this->employers = Employer::whereHas('jobs')
+            ->orderBy('name')
             ->get()
             ->map(fn($e) => [
                 'label' => $e->name,
@@ -50,7 +51,8 @@ class SearchJobs extends Component
                 'value' => ''
             ]);
 
-        $this->tags = Tag::orderBy('name')
+        $this->tags = Tag::whereHas('jobs')
+            ->orderBy('name')
             ->get()
             ->map(fn($t) => [
                 'label' => strtolower($t->name),
