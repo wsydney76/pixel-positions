@@ -7,6 +7,7 @@ use App\Models\Job;
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
 use LaravelIdea\Helper\App\Models\_IH_Job_QB;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,9 +15,16 @@ class SearchJobs extends Component
 {
     use WithPagination;
 
+    #[Url]
     public $search = '';
+
+    #[Url]
     public $employer = '';
+
+    #[Url]
     public $tag = '';
+
+    #[Url]
     public $sort = 'title';
 
     public $employers;
@@ -26,13 +34,6 @@ class SearchJobs extends Component
         ['label' => 'Latest', 'value' => 'latest'],
     ];
 
-
-    protected $queryString = [
-        'employer' => ['except' => ''],
-        'tag' => ['except' => ''],
-        'search' => ['except' => ''],
-        'sort' => ['except' => 'title'],
-    ];
 
     public $perPage = 8;
 
