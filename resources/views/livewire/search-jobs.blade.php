@@ -44,7 +44,11 @@
 
 
     @if($jobs->count())
-        <div id="results" class="mt-6 space-y-6">
+        <div id="results" class="mt-8 space-y-6">
+            <div class="mb-8">
+                {{ $jobs->links() }}
+            </div>
+
             @foreach($jobs as $job)
                 <x-job-card-wide :$job/>
             @endforeach

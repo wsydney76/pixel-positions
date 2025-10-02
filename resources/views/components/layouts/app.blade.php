@@ -14,6 +14,10 @@
 
     @vite(['resources/js/app.js'])
 
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+
 </head>
 
 <body class="bg-white text-black font-hanken-grotesk pb-20 dark:bg-black dark:text-white" style="overflow-y: scroll;">
