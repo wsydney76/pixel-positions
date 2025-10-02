@@ -8,9 +8,15 @@
         @click="open = !open"
     >Details</button>
 
-    <div class="mt-2 p-2 bg-black/5 dark:bg-black/40 rounded-md space-y-2"
+    <div class="mt-2 p-2 bg-black/5 dark:bg-black/40 rounded-md space-y-4"
          x-show="open"
          @click.outside="open = false">
+
+        @if($job->featured)
+            <div>
+                Featured Job
+            </div>
+        @endif
 
         @if($job->location)
             <div>
