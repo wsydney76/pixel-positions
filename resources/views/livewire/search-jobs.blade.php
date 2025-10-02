@@ -33,9 +33,14 @@
 
         <x-livewire.button
             class="mt-4 col-span-4 md:col-span-2"
+            disabled="$wire.search.length < 3 && !$wire.employer && !$wire.tag"
             label="Reset"
             action="resetFilters"
         />
+
+        <div x-text="$wire.tag">
+
+        </div>
 
     </div>
 
