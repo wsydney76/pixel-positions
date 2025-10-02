@@ -6,6 +6,7 @@ use App\Models\Employer;
 use App\Models\Job;
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use LaravelIdea\Helper\App\Models\_IH_Job_QB;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -49,28 +50,28 @@ class SearchJobs extends Component
      * @var string
      */
     #[Url(history: true, except: 'title')]
-    public $sort = 'title';
+    public string $sort = 'title';
 
     /**
      * List of employers for filter dropdown.
      *
-     * @var \Illuminate\Support\Collection
+     * @var Collection
      */
-    public $employers;
+    public Collection $employers;
 
     /**
      * List of tags for filter dropdown.
      *
-     * @var \Illuminate\Support\Collection
+     * @var Collection
      */
-    public $tags;
+    public Collection $tags;
 
     /**
      * Available sort options.
      *
      * @var array
      */
-    public $sortOptions = [
+    public array $sortOptions = [
         ['label' => 'Title (A-Z)', 'value' => 'title'],
         ['label' => 'Latest', 'value' => 'latest'],
     ];
