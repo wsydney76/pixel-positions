@@ -15,16 +15,16 @@ class SearchJobs extends Component
 {
     use WithPagination;
 
-    #[Url]
-    public $search = '';
-
-    #[Url]
+    #[Url(except: '')]
     public $employer = '';
 
-    #[Url]
+    #[Url(except: '')]
     public $tag = '';
 
-    #[Url]
+    #[Url(except: '')]
+    public $search = '';
+
+    #[Url(except: 'title')]
     public $sort = 'title';
 
     public $employers;
@@ -39,13 +39,27 @@ class SearchJobs extends Component
 
     public function mount(): void
     {
-        $this->employers = Employer::orderBy('name')->get()
-            ->map(fn($e) => ['label' => $e->name, 'value' => $e->name])
-            ->prepend(['label' => 'All Employers', 'value' => '']);
+        $this->employers = Employer::orderBy('name')
+            ->get()
+            ->map(fn($e) => [
+                'label' => $e->name,
+                'value' => $e->name
+            ])
+            ->prepend([
+                'label' => 'All Employers',
+                'value' => ''
+            ]);
 
-        $this->tags = Tag::orderBy('name')->get()
-            ->map(fn($t) => ['label' => strtolower($t->name), 'value' => $t->name])
-            ->prepend(['label' => 'All Tags', 'value' => '']);
+        $this->tags = Tag::orderBy('name')
+            ->get()
+            ->map(fn($t) => [
+                'label' => strtolower($t->name),
+                'value' => $t->name
+            ])
+            ->prepend([
+                'label' => 'All Tags',
+                'value' => ''
+            ]);
     }
 
     public function render(): mixed
@@ -66,12 +80,6 @@ class SearchJobs extends Component
         $query = Job::query()
             ->with(['employer', 'tags']);
 
-        if ($this->sort === 'latest') {
-            $query->orderByDesc('created_at');
-        } else {
-            $query->orderBy('title');
-        }
-
         if ($this->employer) {
             $query->whereHas('employer', function($q) {
                 $q->where('name', '=', $this->employer);
@@ -85,11 +93,19 @@ class SearchJobs extends Component
         }
 
         if (strlen($this->search) >= 3) {
-            $query->where(function($q) {
-                $q->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('description', 'like', '%' . $this->search . '%');
+            $term = "%{$this->search}%";
+            $query->where(function($q) use ($term) {
+                $q->where('title', 'like', $term)
+                    ->orWhere('description', 'like', $term);
             });
         }
+
+        if ($this->sort === 'latest') {
+            $query->orderByDesc('created_at');
+        } else {
+            $query->orderBy('title');
+        }
+
         return $query;
     }
 
@@ -100,7 +116,7 @@ class SearchJobs extends Component
 
     public function resetFilters(): void
     {
-        $this->reset(['search', 'employer', 'tag', 'sort']);
+        $this->reset(['employer', 'tag', 'search', 'sort']);
         $this->resetPage();
     }
 }
