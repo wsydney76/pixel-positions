@@ -4,9 +4,9 @@
 
 <div x-data="{ open: false }" class="mt-2 text-sm">
     <button
-        class="w-28 px-5 py-1 text-xs bg-black/5 whitespace-nowrap hover:bg-black/10 text-black dark:bg-black dark:hover:bg-white/25 dark:text-white rounded-xl font-bold transition-colors"
+        class="cursor-pointer px-5 py-1 text-xs bg-black/5 whitespace-nowrap hover:bg-black/10 text-black dark:bg-black dark:hover:bg-white/25 dark:text-white rounded-xl font-bold transition-colors"
         @click="open = !open"
-        x-text="open ? 'Hide details' : 'Show details'"></button>
+        >Details</button>
 
     <div class="mt-2 p-2 bg-black/10 rounded-sm border border-gray-400 space-y-2"
          x-show="open"

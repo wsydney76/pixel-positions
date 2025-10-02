@@ -97,13 +97,14 @@ class SearchJobs extends Component
         $query = $this->getQuery();
 
         // Get all jobs matching the current filters (without pagination)
+        // to extract dynamic employers and tags for the dropdowns.
         $jobs = $query->get();
 
         return view('livewire.search-jobs', [
             'jobs' => $query->paginate($this->perPage),
             'sql' => $query->toRawSql(),
-            'employers' => $this->getEmployersForJobs($query, $jobs),
-            'tags' => $this->getTagsForJobs($query, $jobs)
+            'employers' => $this->getEmployersForJobs($jobs),
+            'tags' => $this->getTagsForJobs($jobs)
         ]);
     }
 
@@ -152,66 +153,42 @@ class SearchJobs extends Component
     }
 
     /**
-     * @param Builder|_IH_Job_QB $query
+     * Get unique employers from the given jobs collection for the employer filter dropdown.
      * @return Collection
      */
-    protected function getEmployersForJobs(Builder|_IH_Job_QB $query, Collection $jobs): Collection
+    protected function getEmployersForJobs(Collection $jobs): Collection
     {
-        // Drilldown: dynamically build employer options
-        if (empty($this->employer)) {
-            // Get employers related to found jobs
-            $employers = Employer::whereIn('id', $jobs->pluck('employer_id')->unique())
-                ->orderBy('name')
-                ->get()
-                ->map(fn($e) => [
-                    'label' => $e->name,
-                    'value' => $e->name
-                ]);
-        } else {
-            // Only show the selected employer
-            $employers = collect([
-                [
-                    'label' => $this->employer,
-                    'value' => $this->employer
-                ]
+        return $jobs->pluck('employer.name')
+            ->unique()
+            ->sort()
+            ->map(fn($e) => [
+                'label' => $e,
+                'value' => $e
+            ])->prepend([
+                'label' => 'All Employers',
+                'value' => ''
             ]);
-        }
-
-        return $employers->prepend([
-            'label' => 'All Employers',
-            'value' => ''
-        ]);
     }
 
     /**
      * @param Builder|_IH_Job_QB $query
      * @return Collection
      */
-    protected function getTagsForJobs(Builder|_IH_Job_QB $query, Collection $jobs): Collection
+    protected function getTagsForJobs(Collection $jobs): Collection
     {
-        // Drilldown: dynamically build tag options
-        if (empty($this->tag)) {
-            $tags = Tag::whereIn('id', $jobs->pluck('tags.*.id')->flatten()->unique())
-                ->orderBy('name')
-                ->get()
-                ->map(fn($t) => [
-                    'label' => strtolower($t->name),
-                    'value' => $t->name
-                ]);
-        } else {
-            // Only show the selected tag
-            $tags = collect([
-                [
-                    'label' => $this->tag,
-                    'value' => $this->tag
-                ]
+        return $jobs
+            ->pluck('tags.*.name')
+            ->flatten()
+            ->unique()
+            ->sortBy(fn($t) => strtolower($t))
+            ->map(fn($t) => [
+                'label' => strtolower($t),
+                'value' => $t
+            ])
+            ->prepend([
+                'label' => 'All Tags',
+                'value' => ''
             ]);
-        }
-
-        return $tags->prepend([
-            'label' => 'All Tags',
-            'value' => ''
-        ]);
     }
 
     /**
