@@ -160,8 +160,7 @@ class SearchJobs extends Component
         // Drilldown: dynamically build employer options
         if (empty($this->employer)) {
             // Get employers related to found jobs
-            $employerIds = $jobs->pluck('employer_id')->unique();
-            $employers = Employer::whereIn('id', $employerIds)
+            $employers = Employer::whereIn('id', $jobs->pluck('employer_id')->unique())
                 ->orderBy('name')
                 ->get()
                 ->map(fn($e) => [
@@ -192,13 +191,7 @@ class SearchJobs extends Component
     {
         // Drilldown: dynamically build tag options
         if (empty($this->tag)) {
-            // Get tags related to found jobs
-            $jobIds = $jobs->pluck('id');
-            $tagIds = \DB::table('job_tag')
-                ->whereIn('job_id', $jobIds)
-                ->pluck('tag_id')
-                ->unique();
-            $tags = Tag::whereIn('id', $tagIds)
+            $tags = Tag::whereIn('id', $jobs->pluck('tags.*.id')->flatten()->unique())
                 ->orderBy('name')
                 ->get()
                 ->map(fn($t) => [
