@@ -103,8 +103,29 @@ class SearchJobs extends Component
         return view('livewire.search-jobs', [
             'jobs' => $query->paginate($this->perPage),
             'sql' => $query->toRawSql(),
-            'employers' => $this->getEmployersForJobs($jobs),
-            'tags' => $this->getTagsForJobs($jobs)
+            'employers' => $jobs->pluck('employer.name')
+                ->unique()
+                ->sort()
+                ->map(fn($e) => [
+                    'label' => $e,
+                    'value' => $e
+                ])->prepend([
+                    'label' => 'All Employers',
+                    'value' => ''
+                ]),
+            'tags' => $jobs
+                ->pluck('tags.*.name')
+                ->flatten()
+                ->unique()
+                ->sortBy(fn($t) => strtolower($t))
+                ->map(fn($t) => [
+                    'label' => strtolower($t),
+                    'value' => $t
+                ])
+                ->prepend([
+                    'label' => 'All Tags',
+                    'value' => ''
+                ])
         ]);
     }
 
@@ -152,44 +173,6 @@ class SearchJobs extends Component
         return $query;
     }
 
-    /**
-     * Get unique employers from the given jobs collection for the employer filter dropdown.
-     * @return Collection
-     */
-    protected function getEmployersForJobs(Collection $jobs): Collection
-    {
-        return $jobs->pluck('employer.name')
-            ->unique()
-            ->sort()
-            ->map(fn($e) => [
-                'label' => $e,
-                'value' => $e
-            ])->prepend([
-                'label' => 'All Employers',
-                'value' => ''
-            ]);
-    }
-
-    /**
-     * @param Builder|_IH_Job_QB $query
-     * @return Collection
-     */
-    protected function getTagsForJobs(Collection $jobs): Collection
-    {
-        return $jobs
-            ->pluck('tags.*.name')
-            ->flatten()
-            ->unique()
-            ->sortBy(fn($t) => strtolower($t))
-            ->map(fn($t) => [
-                'label' => strtolower($t),
-                'value' => $t
-            ])
-            ->prepend([
-                'label' => 'All Tags',
-                'value' => ''
-            ]);
-    }
 
     /**
      * Reset pagination when any property is updated.
