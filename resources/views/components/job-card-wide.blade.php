@@ -18,28 +18,7 @@
         <p class="text-sm text-gray-900 dark:text-gray-400 mt-auto">{{ $job->salary }}</p>
 
 
-        <div x-data="{ open: false }" class="mt-2 text-sm">
-            <button x-show="!open" @click="open = true">More Details</button>
-            <button x-show="open" @click="open = false">Hide Details</button>
-
-            <div class="mt-2 p-2 bg-black/10 rounded-sm border border-gray-400 space-y-2"
-                 x-show="open"
-                 @click.outside="open = false">
-
-                <div>
-                    {{ $job->location }}
-                </div>
-                <div>
-                    {{ $job->schedule }}
-                </div>
-                <div>
-                    {!! nl2br(e($job->description)) !!}
-                </div>
-                <div>
-                    Posted {{ $job->created_at->diffForHumans() }}<br>
-                </div>
-            </div>
-        </div>
+        <x-job-card-details :job="$job"/>
 
     </div>
 
