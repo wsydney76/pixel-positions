@@ -15,16 +15,16 @@ class SearchJobs extends Component
 {
     use WithPagination;
 
-    #[Url(except: '')]
+    #[Url(history: true, except: '')]
     public $employer = '';
 
-    #[Url(except: '')]
+    #[Url(history: true, except: '')]
     public $tag = '';
 
-    #[Url(except: '')]
+    #[Url(as: 'q', history: true, except: '')]
     public $search = '';
 
-    #[Url(except: 'title')]
+    #[Url(history: true, except: 'title')]
     public $sort = 'title';
 
     public $employers;
