@@ -1,49 +1,60 @@
+@use(Illuminate\Support\Str)
+
 @props([
     'job'
 ])
 
-<div x-data="{ open: false }" class="mt-2 text-sm">
+<div x-data="{ open: false }" class="relative mt-2">
     <button
         class="cursor-pointer px-5 py-1 text-xs bg-black/5 whitespace-nowrap hover:bg-black/10 text-black dark:bg-black dark:hover:bg-white/25 dark:text-white dark:border dark:border-white/20 rounded-xl font-bold transition-colors"
         @click="open = !open"
     >Details</button>
 
-    <div class="mt-2 p-2 bg-black/5 dark:bg-black/40 rounded-md space-y-4"
-         x-show="open"
+    <div class="absolute md:left-20 md:-top-20 w-64 md:w-[500px] z-40 bg-white border border-gray-500 shadow-xl dark:bg-black rounded-md"
+         x-show="open" x-transition.origin.top.left.duration.300ms
          @click.outside="open = false">
 
-        @if($job->featured)
+        <div class="bg-black text-white dark:bg-gray-500 flex justify-between items-center px-4 py-2 rounded-t-md">
             <div>
-                Featured Job
+                Details: {{ Str::limit($job->title, 40, '...') }}
             </div>
-        @endif
-
-        @if($job->location)
-            <div>
-                {{ $job->location }}
-            </div>
-        @endif
-
-        @if($job->schedule)
-            <div>
-                {{ $job->schedule }}
-            </div>
-        @endif
-
-        @if($job->description)
-            <div>
-                {!! nl2br(e($job->description)) !!}
-            </div>
-        @endif
-
-        <div>
-            Posted {{ $job->created_at->diffForHumans() }}<br>
+            <button @click="open = false" class="text-white hover:text-gray-300 text-2xl">&times;</button>
         </div>
 
-        @can('edit', $job)
+        <div class="p-4 space-y-4">
+            @if($job->featured)
+                <div>
+                    Featured Job
+                </div>
+            @endif
+
+            @if($job->location)
+                <div>
+                    {{ $job->location }}
+                </div>
+            @endif
+
+            @if($job->schedule)
+                <div>
+                    {{ $job->schedule }}
+                </div>
+            @endif
+
+            @if($job->description)
+                <div>
+                    {!! nl2br(e($job->description)) !!}
+                </div>
+            @endif
+
             <div>
-                <a href="{{ route('jobs.edit', $job) }}" class="text-blue-600 hover:underline">Edit Job</a>
+                Posted {{ $job->created_at->diffForHumans() }}<br>
             </div>
-        @endcan
+
+            @can('edit', $job)
+                <div>
+                    <a href="{{ route('jobs.edit', $job) }}" class="text-blue-600 dark:text-blue-200 hover:underline">Edit Job</a>
+                </div>
+            @endcan
+        </div>
     </div>
 </div>
