@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.app>
     <div class="space-y-10">
         <section class="text-center pt-6">
             <h1 class="font-bold text-4xl">Let's Find Your Next Job</h1>
@@ -36,4 +36,4 @@
             </div>
         </section>
     </div>
-</x-layout>
+</x-layouts.app>

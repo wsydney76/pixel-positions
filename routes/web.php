@@ -4,6 +4,7 @@ use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Livewire\SearchJobs;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [JobController::class, 'index'])
@@ -15,7 +16,7 @@ Route::get('/jobs/create', [JobController::class, 'create'])
 Route::post('/jobs', [JobController::class, 'store'])
     ->middleware('auth');
 
-Route::view('/jobs/search', 'jobs.search')
+Route::get('/jobs/search', SearchJobs::class)
     ->name('jobs.search');
 
 Route::get('/jobs/{job}', [JobController::class, 'show'])

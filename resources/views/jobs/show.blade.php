@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.app>
     <x-page-heading>Job Details</x-page-heading>
 
     <x-panel>
@@ -50,4 +50,4 @@
         @endcan
         <a href="{{ url()->previous() }}" class="text-blue-600 underline mt-4 inline-block">Back</a>
     </div>
-</x-layout>
+</x-layouts.app>

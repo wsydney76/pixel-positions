@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.app>
     <x-page-heading>New Job</x-page-heading>
 
     <x-forms.form method="POST" action="/jobs">
@@ -22,4 +22,4 @@
 
         <x-forms.button>Publish</x-forms.button>
     </x-forms.form>
-</x-layout>
+</x-layouts.app>

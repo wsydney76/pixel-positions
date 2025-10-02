@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.app>
     <x-page-heading>Edit Employer</x-page-heading>
 
     <div class="container mx-auto max-w-2xl py-8">
@@ -17,4 +17,4 @@
         </x-forms.form>
     </div>
 
-</x-layout>
+</x-layouts.app>

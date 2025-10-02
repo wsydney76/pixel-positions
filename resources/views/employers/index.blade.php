@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.app>
     <x-page-heading>Employers</x-page-heading>
     <div class="container mx-auto max-w-3xl py-8">
         <h1 class="text-3xl font-bold mb-6">Employers</h1>
@@ -18,5 +18,5 @@
             @endforelse
         </div>
     </div>
-</x-layout>>
+</x-layouts.app>>
 

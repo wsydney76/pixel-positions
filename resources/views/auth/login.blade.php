@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.app>
     <x-page-heading>Log In</x-page-heading>
 
     <x-forms.form method="POST" action="/login">
@@ -7,4 +7,4 @@
 
         <x-forms.button>Log In</x-forms.button>
     </x-forms.form>
-</x-layout>
+</x-layouts.app>
