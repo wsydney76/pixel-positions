@@ -10,6 +10,7 @@ use LaravelIdea\Helper\App\Models\_IH_Job_QB;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use function dd;
 
 class SearchJobs extends Component
 {
@@ -35,7 +36,8 @@ class SearchJobs extends Component
     ];
 
 
-    public $perPage = 8;
+    protected $perPage = 8;
+    public int $minSearchLength = 3;
 
     public function mount(): void
     {
@@ -96,7 +98,7 @@ class SearchJobs extends Component
             });
         }
 
-        if (strlen($this->search) >= 3) {
+        if (strlen($this->search) >= $this->minSearchLength) {
             $term = "%{$this->search}%";
             $query->where(function($q) use ($term) {
                 $q->where('title', 'like', $term)

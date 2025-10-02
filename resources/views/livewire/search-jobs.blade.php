@@ -36,7 +36,7 @@
 
         <x-livewire.button
             class="mt-4 col-span-4 md:col-span-2"
-            disabled="$wire.search.length < 3 && !$wire.employer && !$wire.tag && $wire.sort == 'title'"
+            disabled="$wire.search.length < {{ $minSearchLength }} && !$wire.employer && !$wire.tag && $wire.sort == 'title'"
             label="Reset"
             action="resetFilters"
         />
