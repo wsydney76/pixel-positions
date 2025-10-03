@@ -2,8 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Models\Employer;
 use App\Models\Job;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use LaravelIdea\Helper\App\Models\_IH_Job_QB;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -18,6 +21,8 @@ use Livewire\WithPagination;
 class SearchJobs extends Component
 {
     use WithPagination;
+
+    public string $facetMethod = 'all'; // 'all' or 'query'
 
     /**
      * Selected employer filter.
@@ -61,6 +66,10 @@ class SearchJobs extends Component
         ['label' => 'Latest', 'value' => 'latest'],
     ];
 
+    public Collection $employers;
+    public Collection $tags;
+
+
     /**
      * Number of jobs per page for pagination.
      *
@@ -75,6 +84,19 @@ class SearchJobs extends Component
      */
     public int $minSearchLength = 3;
 
+
+    /**
+     * Initialize filter dropdowns with available employers and tags.
+     *
+     * @return void
+     */
+    public function mount(): void
+    {
+        if ($this->facetMethod === 'all') {
+            $this->setFacets();
+        }
+    }
+
     /**
      * Render the component view with filtered jobs.
      *
@@ -83,46 +105,16 @@ class SearchJobs extends Component
     public function render(): mixed
     {
         $query = $this->getQuery();
-
-        // Get all jobs matching the current filters (without pagination)
-        // to extract dynamic employers and tags for the dropdowns.
-        // TODO: Depending on the size of the dataset, this may need optimization/a different approach.
-        $jobs = $query->get();
+        if ($this->facetMethod === 'query') {
+            $this->setFacetsForQuery($query);
+        }   
 
         return view('livewire.search-jobs', [
-
             // Paginated jobs for display
             'jobs' => $query->paginate($this->perPage),
 
             // For debugging: show the raw SQL query being executed
             'sql' => $query->toRawSql(),
-
-            // Build employer dropdown options from filtered jobs
-            'employers' => $jobs->pluck('employer.name')
-                ->unique()
-                ->sort()
-                ->map(fn($e) => [
-                    'label' => $e,
-                    'value' => $e
-                ])->prepend([
-                    'label' => 'All Employers',
-                    'value' => ''
-                ]),
-
-            // Build tag dropdown options from filtered jobs
-            'tags' => $jobs
-                ->pluck('tags.*.name')
-                ->flatten()
-                ->unique()
-                ->sortBy(fn($t) => strtolower($t))
-                ->map(fn($t) => [
-                    'label' => strtolower($t),
-                    'value' => $t
-                ])
-                ->prepend([
-                    'label' => 'All Tags',
-                    'value' => ''
-                ])
         ]);
     }
 
@@ -168,6 +160,71 @@ class SearchJobs extends Component
         }
 
         return $query;
+    }
+
+    /**
+     * @return void
+     */
+    protected function setFacets(): void
+    {
+        // Get employers that have jobs and prepare dropdown options.
+        $this->employers = Employer::query()
+            ->whereHas('jobs')
+            ->orderBy('name')
+            ->get()
+            ->map(fn($e) => [
+                'label' => $e->name,
+                'value' => $e->name
+            ])
+            ->prepend([
+                'label' => 'All Employers',
+                'value' => ''
+            ]);
+
+        // Get tags that have jobs and prepare dropdown options.
+        $this->tags = Tag::query()
+            ->whereHas('jobs')
+            ->orderBy('name')
+            ->get()
+            ->map(fn($t) => [
+                'label' => strtolower($t->name),
+                'value' => $t->name
+            ])
+            ->prepend([
+                'label' => 'All Tags',
+                'value' => ''
+            ]);
+    }
+
+
+
+    /**
+     * @param Builder|_IH_Job_QB $query
+     * @return void
+     */
+    protected function setFacetsForQuery(Builder|_IH_Job_QB $query): void
+    {
+        // Get all jobs matching the current filters (without pagination)
+        // to extract dynamic employers and tags for the dropdowns.
+        // TODO: Depending on the size of the dataset, this may need optimization/a different approach.
+        $jobs = $query->get();
+
+
+        $this->employers = $jobs->pluck('employer.name')->unique()->sort()->map(fn($e) => [
+            'label' => $e,
+            'value' => $e
+        ])->prepend([
+            'label' => 'All Employers',
+            'value' => ''
+        ]);
+
+        $this->tags = $jobs->pluck('tags.*.name')->flatten()->unique()->sortBy(fn($t) => strtolower($t))->map(fn($t) => [
+            'label' => strtolower($t),
+            'value' => $t
+        ])->prepend([
+            'label' => 'All Tags',
+            'value' => ''
+        ]);
     }
 
     /**

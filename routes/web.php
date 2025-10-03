@@ -17,6 +17,7 @@ Route::post('/jobs', [JobController::class, 'store'])
     ->middleware('auth');
 
 Route::get('/jobs/search', SearchJobs::class)
+    ->defaults('facetMethod', 'query')
     ->name('jobs.search');
 
 Route::get('/jobs/{job}', [JobController::class, 'show'])
