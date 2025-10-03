@@ -23,7 +23,7 @@ class EmployerController extends Controller
     public function update(Request $request, Employer $employer)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:employers,name,' . $employer->id,
             'logo' => ['nullable', File::types(['png', 'jpg', 'webp', 'svg'])],
         ]);
 
