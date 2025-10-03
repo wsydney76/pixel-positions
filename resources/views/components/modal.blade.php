@@ -14,7 +14,7 @@
     <!-- Modal Content -->
     <div
         class="bg-white border border-gray-500 shadow-xl dark:bg-black rounded-md w-64 md:w-[500px] max-h-[80vh] overflow-y-auto relative">
-        <div class="bg-black text-white dark:bg-gray-500 flex justify-between items-center px-4 py-1 rounded-t-md">
+        <div class="sticky top-0 z-10 bg-black text-white dark:bg-gray-500 flex justify-between items-center px-4 py-1 rounded-t-md">
             <div class="text-sm">
                 {{ $caption }}
             </div>
