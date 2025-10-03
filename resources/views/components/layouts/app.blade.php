@@ -40,6 +40,9 @@
 
         @auth
             <div class="space-x-6 font-bold flex">
+                <div>
+                    {{ Auth::user()->name ?? '' }}
+                </div>
                 <a href="/jobs/create">Post a Job</a>
 
                 <form method="POST" action="/logout">
