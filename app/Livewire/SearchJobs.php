@@ -2,19 +2,18 @@
 
 namespace App\Livewire;
 
-use App\Models\Employer;
 use App\Models\Job;
-use App\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
 use LaravelIdea\Helper\App\Models\_IH_Job_QB;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
-use function dd;
 
 /**
  * Livewire component for searching and filtering jobs.
+ *
+ * Provides filtering by employer, tag, search query, and sorting.
+ * Handles pagination and dynamic dropdowns for employers and tags.
  */
 class SearchJobs extends Component
 {
@@ -26,7 +25,7 @@ class SearchJobs extends Component
      * @var string
      */
     #[Url(history: true, except: '')]
-    public $employer = '';
+    public string $employer = '';
 
     /**
      * Selected tag filter.
@@ -34,7 +33,7 @@ class SearchJobs extends Component
      * @var string
      */
     #[Url(history: true, except: '')]
-    public $tag = '';
+    public string $tag = '';
 
     /**
      * Search query string.
@@ -42,7 +41,7 @@ class SearchJobs extends Component
      * @var string
      */
     #[Url(as: 'q', history: true, except: '')]
-    public $search = '';
+    public string $search = '';
 
     /**
      * Selected sort option.
@@ -53,22 +52,21 @@ class SearchJobs extends Component
     public string $sort = 'title';
 
     /**
-     * Available sort options.
+     * Available sort options for jobs.
      *
-     * @var array
+     * @var array<int, array<string, string>>
      */
     public array $sortOptions = [
         ['label' => 'Title (A-Z)', 'value' => 'title'],
         ['label' => 'Latest', 'value' => 'latest'],
     ];
 
-
     /**
-     * Number of jobs per page.
+     * Number of jobs per page for pagination.
      *
      * @var int
      */
-    protected $perPage = 8;
+    protected int $perPage = 8;
 
     /**
      * Minimum length for search query to trigger filtering.
@@ -78,19 +76,9 @@ class SearchJobs extends Component
     public int $minSearchLength = 3;
 
     /**
-     * Initialize filter dropdowns with available employers and tags.
-     *
-     * @return void
-     */
-    public function mount(): void
-    {
-        // No longer needed: dropdowns are now dynamic in render().
-    }
-
-    /**
      * Render the component view with filtered jobs.
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function render(): mixed
     {
@@ -98,11 +86,13 @@ class SearchJobs extends Component
 
         // Get all jobs matching the current filters (without pagination)
         // to extract dynamic employers and tags for the dropdowns.
+        // TODO: Depending on the size of the dataset, this may need optimization/a different approach.
         $jobs = $query->get();
 
         return view('livewire.search-jobs', [
             'jobs' => $query->paginate($this->perPage),
             'sql' => $query->toRawSql(),
+            // Build employer dropdown options from filtered jobs
             'employers' => $jobs->pluck('employer.name')
                 ->unique()
                 ->sort()
@@ -113,6 +103,7 @@ class SearchJobs extends Component
                     'label' => 'All Employers',
                     'value' => ''
                 ]),
+            // Build tag dropdown options from filtered jobs
             'tags' => $jobs
                 ->pluck('tags.*.name')
                 ->flatten()
@@ -134,7 +125,7 @@ class SearchJobs extends Component
      *
      * @return Builder|_IH_Job_QB
      */
-    protected function getQuery(): _IH_Job_QB|Builder
+    protected function getQuery(): Builder|_IH_Job_QB
     {
         // Start query with eager loading employer and tags.
         $query = Job::query()
@@ -173,9 +164,10 @@ class SearchJobs extends Component
         return $query;
     }
 
-
     /**
      * Reset pagination when any property is updated.
+     *
+     * Called automatically by Livewire when a public property changes.
      *
      * @return void
      */
@@ -186,6 +178,8 @@ class SearchJobs extends Component
 
     /**
      * Reset all filters and pagination.
+     *
+     * Resets employer, tag, search, and sort to their default values.
      *
      * @return void
      */
