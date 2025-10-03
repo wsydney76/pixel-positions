@@ -90,8 +90,13 @@ class SearchJobs extends Component
         $jobs = $query->get();
 
         return view('livewire.search-jobs', [
+
+            // Paginated jobs for display
             'jobs' => $query->paginate($this->perPage),
+
+            // For debugging: show the raw SQL query being executed
             'sql' => $query->toRawSql(),
+
             // Build employer dropdown options from filtered jobs
             'employers' => $jobs->pluck('employer.name')
                 ->unique()
@@ -103,6 +108,7 @@ class SearchJobs extends Component
                     'label' => 'All Employers',
                     'value' => ''
                 ]),
+
             // Build tag dropdown options from filtered jobs
             'tags' => $jobs
                 ->pluck('tags.*.name')
