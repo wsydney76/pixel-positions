@@ -66,6 +66,7 @@ class SearchJobs extends Component
         ['label' => 'Latest', 'value' => 'latest'],
     ];
 
+    // Collections for dropdown options
     public Collection $employers;
     public Collection $tags;
 
@@ -105,9 +106,10 @@ class SearchJobs extends Component
     public function render(): mixed
     {
         $query = $this->getQuery();
+
         if ($this->facetMethod === 'query') {
             $this->setFacetsForQuery($query);
-        }   
+        }
 
         return view('livewire.search-jobs', [
             // Paginated jobs for display
