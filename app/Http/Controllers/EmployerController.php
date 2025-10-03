@@ -36,6 +36,8 @@ class EmployerController extends Controller
 
         $employer->save();
 
-        return redirect()->route('employers.edit', $employer)->with('success', 'Employer updated successfully.');
+        return redirect()
+            ->route('employers.edit', $employer)
+            ->with('success', 'Employer updated successfully.');
     }
 }
