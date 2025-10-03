@@ -4,47 +4,45 @@
     'job'
 ])
 
-<div x-data="{ open: false }" class="relative mt-2">
+<!-- Modal Backdrop -->
+<x-modal class="mt-2"
+    :caption="'Job Details: ' . Str::limit($job->title, 50)">
 
-    <x-pill type="button" @click="open = true">Details</x-pill>
-
-    <!-- Modal Backdrop -->
-    <x-modal :caption="'Job Details: ' . Str::limit($job->title, 50)">
-        <div class="space-y-4">
-            @if($job->featured)
-                <div>
-                    Featured Job
-                </div>
-            @endif
-
-            @if($job->location)
-                <div>
-                    {{ $job->location }}
-                </div>
-            @endif
-
-            @if($job->schedule)
-                <div>
-                    {{ $job->schedule }}
-                </div>
-            @endif
-
-            @if($job->description)
-                <div>
-                    {!! nl2br(e($job->description)) !!}
-                </div>
-            @endif
-
+    <div class="space-y-4">
+        @if($job->featured)
             <div>
-                Posted {{ $job->created_at->diffForHumans() }}<br>
+                Featured Job
             </div>
+        @endif
 
-            @can('edit', $job)
-                <div>
-                    <a href="{{ route('jobs.edit', $job) }}" class="text-blue-600 dark:text-blue-200 hover:underline">Edit
-                        Job</a>
-                </div>
-            @endcan
+        @if($job->location)
+            <div>
+                {{ $job->location }}
+            </div>
+        @endif
+
+        @if($job->schedule)
+            <div>
+                {{ $job->schedule }}
+            </div>
+        @endif
+
+        @if($job->description)
+            <div>
+                {!! nl2br(e($job->description)) !!}
+            </div>
+        @endif
+
+        <div>
+            Posted {{ $job->created_at->diffForHumans() }}<br>
         </div>
-    </x-modal>
-</div>
+
+        @can('edit', $job)
+            <div>
+                <a href="{{ route('jobs.edit', $job) }}" class="text-blue-600 dark:text-blue-200 hover:underline">Edit
+                    Job</a>
+            </div>
+        @endcan
+    </div>
+</x-modal>
+
