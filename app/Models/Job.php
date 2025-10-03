@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use function strtolower;
 
 class Job extends Model
 {
@@ -13,7 +14,8 @@ class Job extends Model
 
     public function tag(string $name): void
     {
-        $tag = Tag::firstOrCreate(['name' => strtolower($name)]);
+        $name = trim((strtolower($name)));
+        $tag = Tag::firstOrCreate(['name' => $name]);
 
         $this->tags()->attach($tag);
     }
