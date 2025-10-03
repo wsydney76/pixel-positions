@@ -23,17 +23,33 @@
                 </div>
             @endif
 
-            @if($job->location)
-                <div>
-                    {{ $job->location }}
-                </div>
-            @endif
+           <table class="min-w-full text-left">
+                <tbody>
+                    @if($job->salary)
+                        <tr>
+                            <td class="w-20 font-semibold pr-2">Salary:</td>
+                            <td>{{ $job->salary }}</td>
+                        </tr>
+                    @endif
+                    @if($job->location)
+                        <tr>
+                            <td class="w-20 font-semibold pr-2">Location:</td>
+                            <td>{{ $job->location }}</td>
+                        </tr>
+                    @endif
+                    @if($job->schedule)
+                        <tr>
+                            <td class="w-20 font-semibold pr-2">Schedule:</td>
+                            <td>{{ $job->schedule }}</td>
+                        </tr>
+                    @endif
 
-            @if($job->schedule)
-                <div>
-                    {{ $job->schedule }}
-                </div>
-            @endif
+                    <tr>
+                        <td class="w-20 font-semibold pr-2">Posted:</td>
+                        <td>{{ $job->created_at->diffForHumans() }}</td>
+                    </tr>
+                </tbody>
+            </table>
 
             @if($job->description)
                 <div>
@@ -49,12 +65,6 @@
                 </div>
             @endif
 
-
-            <div>
-                Posted {{ $job->created_at->diffForHumans() }}<br>
-            </div>
-
-
             <div class="flex flex-wrap gap-1">
                 @foreach($job->tags as $tag)
                     <div>
@@ -62,8 +72,6 @@
                     </div>
                 @endforeach
             </div>
-
-
 
             @can('edit', $job)
                 <div>
