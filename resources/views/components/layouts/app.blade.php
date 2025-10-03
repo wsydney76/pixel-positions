@@ -21,6 +21,9 @@
 </head>
 
 <body class="bg-white text-black font-hanken-grotesk pb-20 dark:bg-black dark:text-white">
+
+<a href="#content" class="sr-only focus:not-sr-only absolute left-4 top-4 bg-black text-white px-4 py-2 rounded z-50">Skip to content</a>
+
 <div class="px-10">
     <nav
         class="-mx-10  px-10 bg-black text-white flex justify-between items-center py-4 dark:border-b dark:border-white/10">
@@ -62,7 +65,7 @@
         @endguest
     </nav>
 
-    <main class="mt-10 max-w-[986px] mx-auto">
+    <main id="content" class="mt-10 max-w-[986px] mx-auto">
         <x-flash/>
 
         {{ $slot }}

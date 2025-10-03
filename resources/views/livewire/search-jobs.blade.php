@@ -44,17 +44,19 @@
 
     @if($jobs->count())
         <div id="results" class="mt-8 space-y-6">
-            <div class="mb-6">
+            <div>
                 {{ $jobs->links() }}
             </div>
 
             @foreach($jobs as $job)
                 <x-job-card-wide :$job/>
             @endforeach
+
+            <div>
+                {{ $jobs->links(data: ['scrollTo' => '#filters']) }}
+            </div>
         </div>
-        <div class="mt-6">
-            {{ $jobs->links(data: ['scrollTo' => '#filters']) }}
-        </div>
+
     @else
         <div class="text-gray-500 mt-6">No jobs found</div>
     @endif
