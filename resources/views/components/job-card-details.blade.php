@@ -1,12 +1,10 @@
-@use(Illuminate\Support\Str)
-
 @props([
     'job'
 ])
 
 <!-- Modal Backdrop -->
 <x-modal class="mt-2"
-    :caption="'Job Details: ' . Str::limit($job->title, 50)">
+    :caption="'Job Details: ' . $job->title">
 
     <x-slot name="trigger">
         <x-pill type="button" @click="open()">Details</x-pill>

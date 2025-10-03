@@ -199,7 +199,6 @@ class SearchJobs extends Component
     }
 
 
-
     /**
      * @param Builder|_IH_Job_QB $query
      * @return void
@@ -212,21 +211,30 @@ class SearchJobs extends Component
         $jobs = $query->get();
 
 
-        $this->employers = $jobs->pluck('employer.name')->unique()->sort()->map(fn($e) => [
-            'label' => $e,
-            'value' => $e
-        ])->prepend([
-            'label' => 'All Employers',
-            'value' => ''
-        ]);
+        $this->employers = $jobs
+            ->pluck('employer.name')
+            ->unique()
+            ->sort()
+            ->map(fn($e) => [
+                'label' => $e,
+                'value' => $e
+            ])->prepend([
+                'label' => 'All Employers',
+                'value' => ''
+            ]);
 
-        $this->tags = $jobs->pluck('tags.*.name')->flatten()->unique()->sortBy(fn($t) => strtolower($t))->map(fn($t) => [
-            'label' => strtolower($t),
-            'value' => $t
-        ])->prepend([
-            'label' => 'All Tags',
-            'value' => ''
-        ]);
+        $this->tags = $jobs
+            ->pluck('tags.*.name')
+            ->flatten()
+            ->unique()
+            ->sortBy(fn($t) => strtolower($t))
+            ->map(fn($t) => [
+                'label' => strtolower($t),
+                'value' => $t
+            ])->prepend([
+                'label' => 'All Tags',
+                'value' => ''
+            ]);
     }
 
     /**

@@ -13,7 +13,7 @@ Route::get('/', [JobController::class, 'index'])
     ->name('jobs.index');
 
 Route::get('/jobs/search', SearchJobs::class)
-    ->defaults('facetMethod', 'query') // all or query
+    ->defaults('facetMethod', 'all') // all or query
     ->name('jobs.search');
 
 Route::get('/jobs/{job}', [JobController::class, 'show'])
