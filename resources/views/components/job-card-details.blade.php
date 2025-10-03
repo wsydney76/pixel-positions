@@ -25,7 +25,7 @@
             <button @click="open = false" class="text-white hover:text-gray-300 text-2xl">&times;</button>
         </div>
 
-        <div class="p-4 space-y-4">
+        <div class="p-4 space-y-4 text-sm">
             @if($job->featured)
                 <div>
                     Featured Job
