@@ -45,7 +45,7 @@
 
     @if($jobs->count())
         <div id="results" class="mt-8 space-y-6">
-            <div class="mb-8">
+            <div class="mb-6">
                 {{ $jobs->links() }}
             </div>
 
@@ -53,7 +53,7 @@
                 <x-job-card-wide :$job/>
             @endforeach
         </div>
-        <div class="mt-8">
+        <div class="mt-6">
             {{ $jobs->links(data: ['scrollTo' => '#filters']) }}
         </div>
     @else

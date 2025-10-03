@@ -5,11 +5,7 @@
 ])
 
 <div x-data="{ open: false }" class="relative mt-2">
-    <button
-        class="cursor-pointer px-5 py-1 text-xs bg-black/5 whitespace-nowrap hover:bg-black/10 text-black dark:bg-black dark:hover:bg-white/25 dark:text-white dark:border dark:border-white/20 rounded-xl font-bold transition-colors"
-        @click="open = !open">
-        Details
-    </button>
+    <x-pill type="button" @click="open = !open">Details</x-pill>
 
     <div
         class="absolute md:left-20 md:-top-20 w-64 md:w-[500px] z-40 bg-white border border-gray-500 shadow-xl dark:bg-black rounded-md"
