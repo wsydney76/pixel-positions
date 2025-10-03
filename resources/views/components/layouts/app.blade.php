@@ -20,7 +20,7 @@
 
 </head>
 
-<body class="bg-white text-black font-hanken-grotesk pb-20 dark:bg-black dark:text-white" style="overflow-y: scroll;">
+<body class="bg-white text-black font-hanken-grotesk pb-20 dark:bg-black dark:text-white">
 <div class="px-10">
     <nav
         class="-mx-10  px-10 bg-black text-white flex justify-between items-center py-4 dark:border-b dark:border-white/10">
@@ -69,6 +69,7 @@
     </main>
 </div>
 
+@livewireScriptConfig
 
 </body>
 </html>

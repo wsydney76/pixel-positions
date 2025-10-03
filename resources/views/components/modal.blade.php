@@ -4,6 +4,7 @@
     x-show="open"
     x-cloak
     x-transition.opacity.duration.300ms
+    x-trap.inert.noscroll="open"
     class="fixed inset-0 bg-gray-500/50 z-40 flex items-center justify-center"
     @click.self="open = false"
     @keydown.escape.window="open = false"
