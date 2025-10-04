@@ -4,7 +4,6 @@ use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
-use App\Livewire\SearchJobs;
 use Illuminate\Support\Facades\Route;
 
 // Routes that do not require authentication ==============================================================
@@ -12,8 +11,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [JobController::class, 'index'])
     ->name('jobs.index');
 
-Route::get('/jobs/search', SearchJobs::class)
-    ->defaults('facetMethod', 'query') // all or query
+Route::view('/jobs/search', 'jobs.search',
+    ['facetMethod' => 'query'])
     ->name('jobs.search');
 
 Route::get('/jobs/{job}', [JobController::class, 'show'])

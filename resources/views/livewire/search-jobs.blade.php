@@ -1,7 +1,5 @@
 <div>
 
-    <x-page-heading>Search Jobs</x-page-heading>
-
     {{--{{ $sql }}--}}
 
 
