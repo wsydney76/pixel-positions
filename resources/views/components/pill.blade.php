@@ -10,6 +10,11 @@
         'small' => " px-3 py-1 text-2xs",
         default => " px-5 py-1 text-xs",
     };
+
+    if ($type == 'button') {
+        $classes .= " cursor-pointer";
+    }
+
 @endphp
 
 @if($type == 'link')
