@@ -4,7 +4,7 @@
 
     <livewire:job-details/>
 
-    <livewire:search-jobs :facetMethod="$facetMethod" />
+    <livewire:jobs-search :facetMethod="$facetMethod" />
 
 </x-layouts.app>
 

@@ -18,7 +18,7 @@ use Livewire\WithPagination;
  * Provides filtering by employer, tag, search query, and sorting.
  * Handles pagination and dynamic dropdowns for employers and tags.
  */
-class SearchJobs extends Component
+class JobsSearch extends Component
 {
     use WithPagination;
 
@@ -111,7 +111,7 @@ class SearchJobs extends Component
             $this->setFacetsForQuery($query);
         }
 
-        return view('livewire.search-jobs', [
+        return view('livewire.jobs-search', [
             // Paginated jobs for display
             'jobs' => $query->paginate($this->perPage),
 
