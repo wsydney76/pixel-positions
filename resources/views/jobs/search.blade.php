@@ -2,7 +2,9 @@
 
     <x-page-heading>Search Jobs</x-page-heading>
 
-    @livewire('search-jobs', ['facetMethod' => $facetMethod])
+    <livewire:job-details/>
 
-</x-layouts.app>>
+    <livewire:search-jobs :facetMethod="$facetMethod" />
+
+</x-layouts.app>
 

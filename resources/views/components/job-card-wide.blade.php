@@ -18,7 +18,13 @@
         <p class="text-sm text-gray-900 dark:text-gray-400 mt-auto">{{ $job->salary }}</p>
 
 
-        <x-job-card-details :job="$job"/>
+        <div class="mt-2">
+            <x-pill type="button"
+                    @click="$dispatch('job-details', { id: {{ $job->id }} })">
+                Details
+            </x-pill>
+        </div>
+
 
     </div>
 
@@ -29,4 +35,6 @@
             </div>
         @endforeach
     </div>
+
+
 </x-panel>
