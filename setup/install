@@ -1,0 +1,16 @@
+#!/bin/bash
+# Usage: setup/install <project-name>
+# Example: setup/install myproject
+if [ -z "$1" ]; then
+  echo "Usage: setup/install <project-name>"
+    exit 1
+fi
+ddev config --project-name=$1 &&
+ddev start &&
+ddev composer install &&
+ddev npm install &&
+ddev artisan key:generate &&
+ddev artisan migrate &&
+ddev artisan db:seed &&
+ddev npm run build &&
+ddev launch

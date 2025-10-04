@@ -7,6 +7,17 @@ Based on [Laracast "30 Days to Learn Laravel"](https://laracasts.com/series/30-d
 
 Extended search functionality with Livewire.
 
+## DDEV Installation
+
+* Clone repository
+* `cd` into project directory
+* Run `bash setup/install <projectname>`
+
+`bash` just executes the script without it having execute permissions.
+
+If that's not available on your system, just run the commands in the script manually.
+
+
 <hr/>
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
