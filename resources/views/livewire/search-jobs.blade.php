@@ -58,13 +58,4 @@
     @else
         <div class="text-gray-500 mt-6">No jobs found</div>
     @endif
-
-    @script
-    <script>
-        function showDetails(id) {
-            $wire.dispatch('job-details', { id: id })
-        }
-    </script>
-    @endscript
-
 </div>

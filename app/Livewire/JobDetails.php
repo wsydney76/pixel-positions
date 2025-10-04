@@ -9,7 +9,6 @@ use Livewire\Component;
 class JobDetails extends Component
 {
     public ?Job $job = null;
-    public $id;
 
     #[On('job-details')]
     public function loadItem(int $id): void
