@@ -20,10 +20,10 @@
 
     <div
         class="fixed inset-0 z-40 flex items-center justify-center bg-gray-500/50"
-        x-show="isOpen"
+        x-show="isOpen()"
         x-cloak
         x-transition.opacity.duration.300ms
-        x-trap.inert.noscroll="isOpen"
+        x-trap.inert.noscroll="isOpen()"
         @click.self="close()"
         @keydown.escape.window="close()"
         tabindex="-1"
