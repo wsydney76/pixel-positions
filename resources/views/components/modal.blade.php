@@ -1,4 +1,4 @@
-@props(['caption' => 'Details'])
+@props(['caption' => 'Details', 'trigger' =>''])
 
 <div {{ $attributes }}
      x-data="{
@@ -6,7 +6,8 @@
         open() { this.modalOpen = true; },
         close() { this.modalOpen = false;},
         isOpen() { return this.modalOpen; }
-    }">
+    }"
+>
 
     {{-- Trigger slot, must call open() --}}
     {{ $trigger }}

@@ -20,7 +20,7 @@
 
         <div class="mt-2">
             <x-pill type="button"
-                    @click="$dispatch('job-details', { id: {{ $job->id }} })">
+                    @click="$dispatch('load-job-details', { id: {{ $job->id }} })">
                 Details
             </x-pill>
         </div>

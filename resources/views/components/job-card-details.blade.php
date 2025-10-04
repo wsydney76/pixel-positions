@@ -1,3 +1,5 @@
+<!--Superseeded by job-details component -->
+
 @props([
     'job'
 ])
