@@ -1,4 +1,7 @@
 <x-layouts.app>
+
+    <livewire:job-details />
+
     <div class="space-y-10">
         <section class="pt-6 text-center">
             <h1 class="text-4xl font-bold">Let's Find Your Next Job</h1>
