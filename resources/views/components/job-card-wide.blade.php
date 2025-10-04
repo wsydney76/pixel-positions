@@ -1,40 +1,37 @@
-@props(['job'])
+@props([
+    'job',
+])
 
 <x-panel class="flex items-start gap-x-6">
+    <x-employer-logo :employer="$job->employer" />
 
-    <x-employer-logo :employer="$job->employer"/>
-
-    <div class="flex-1 flex flex-col">
+    <div class="flex flex-1 flex-col">
         <div>
-            <x-employer :employer="$job->employer"/>
+            <x-employer :employer="$job->employer" />
         </div>
 
-        <h3 class="font-bold text-xl mt-3 hover:text-blue-600 transition-colors text-black dark:text-white">
+        <h3
+            class="mt-3 text-xl font-bold text-black transition-colors hover:text-blue-600 dark:text-white"
+        >
             <a href="{{ route('jobs.show', $job) }}">
                 {{ $job->title }}
             </a>
         </h3>
 
-        <p class="text-sm text-gray-900 dark:text-gray-400 mt-auto">{{ $job->salary }}</p>
-
+        <p class="mt-auto text-sm text-gray-900 dark:text-gray-400">{{ $job->salary }}</p>
 
         <div class="mt-2">
-            <x-pill type="button"
-                    @click="$dispatch('load-job-details', { id: {{ $job->id }} })">
+            <x-pill type="button" @click="$dispatch('load-job-details', { id: {{ $job->id }} })">
                 Details
             </x-pill>
         </div>
-
-
     </div>
 
     <div class="flex flex-wrap gap-2">
-        @foreach($job->tags as $tag)
+        @foreach ($job->tags as $tag)
             <div>
-                <x-tag :$tag/>
+                <x-tag :$tag />
             </div>
         @endforeach
     </div>
-
-
 </x-panel>

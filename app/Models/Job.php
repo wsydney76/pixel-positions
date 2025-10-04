@@ -14,7 +14,7 @@ class Job extends Model
 
     public function tag(string $name): void
     {
-        $name = trim((strtolower($name)));
+        $name = trim(strtolower($name));
         $tag = Tag::firstOrCreate(['name' => $name]);
 
         $this->tags()->attach($tag);

@@ -6,7 +6,11 @@
         <x-forms.input label="Salary" name="salary" placeholder="$90,000 USD" />
         <x-forms.input label="Location" name="location" placeholder="Winter Park, Florida" />
 
-        <x-forms.textarea label="Description" name="description" placeholder="Describe the job role, requirements, etc." />
+        <x-forms.textarea
+            label="Description"
+            name="description"
+            placeholder="Describe the job role, requirements, etc."
+        />
 
         <x-forms.select label="Schedule" name="schedule">
             <option>Part Time</option>
@@ -18,7 +22,11 @@
 
         <x-forms.divider />
 
-        <x-forms.input label="Tags (comma separated)" name="tags" placeholder="laracasts, video, education" />
+        <x-forms.input
+            label="Tags (comma separated)"
+            name="tags"
+            placeholder="laracasts, video, education"
+        />
 
         <x-forms.button>Publish</x-forms.button>
     </x-forms.form>

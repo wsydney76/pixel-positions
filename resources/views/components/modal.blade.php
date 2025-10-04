@@ -1,14 +1,20 @@
-@props(['caption' => 'Details', 'trigger' =>''])
+@props(['caption' => 'Details', 'trigger' => ''])
 
-<div {{ $attributes }}
-     x-data="{
+<div
+    {{ $attributes }}
+    x-data="{
         modalOpen: false,
-        open() { this.modalOpen = true; },
-        close() { this.modalOpen = false;},
-        isOpen() { return this.modalOpen; }
+        open() {
+            this.modalOpen = true
+        },
+        close() {
+            this.modalOpen = false
+        },
+        isOpen() {
+            return this.modalOpen
+        },
     }"
 >
-
     {{-- Trigger slot, must call open() --}}
     {{ $trigger }}
 
@@ -17,7 +23,7 @@
         x-cloak
         x-transition.opacity.duration.300ms
         x-trap.inert.noscroll="isOpen"
-        class="fixed inset-0 bg-gray-500/50 z-40 flex items-center justify-center"
+        class="fixed inset-0 z-40 flex items-center justify-center bg-gray-500/50"
         @click.self="close()"
         @keydown.escape.window="close()"
         tabindex="-1"
@@ -26,13 +32,19 @@
     >
         <!-- Modal Content -->
         <div
-            class="bg-white border border-gray-500 shadow-xl dark:bg-black rounded-md w-64 md:w-[500px] max-h-[80vh] overflow-y-auto relative">
+            class="relative max-h-[80vh] w-64 overflow-y-auto rounded-md border border-gray-500 bg-white shadow-xl md:w-[500px] dark:bg-black"
+        >
             <div
-                class="sticky top-0 z-10 bg-black text-white dark:bg-gray-500 flex justify-between items-center px-4 py-1 rounded-t-md">
-                <div class="text-sm truncate pr-4">
+                class="sticky top-0 z-10 flex items-center justify-between rounded-t-md bg-black px-4 py-1 text-white dark:bg-gray-500"
+            >
+                <div class="truncate pr-4 text-sm">
                     {{ $caption }}
                 </div>
-                <button @click="close()" class="text-white hover:text-gray-300 text-2xl" aria-label="Close">
+                <button
+                    @click="close()"
+                    class="text-2xl text-white hover:text-gray-300"
+                    aria-label="Close"
+                >
                     &times;
                 </button>
             </div>
@@ -40,7 +52,6 @@
             <div class="p-4 text-sm">
                 {{ $panel }}
             </div>
-
         </div>
     </div>
 </div>

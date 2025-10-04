@@ -1,65 +1,62 @@
 <!--Superseeded by job-details component -->
 
 @props([
-    'job'
+    'job',
 ])
 
 <!-- Modal Backdrop -->
-<x-modal class="mt-2"
-         :caption="'Job Details: ' . $job->title">
-
+<x-modal class="mt-2" :caption="'Job Details: ' . $job->title">
     <x-slot name="trigger">
         <x-pill type="button" @click="open()">Details</x-pill>
     </x-slot>
 
     <x-slot name="panel">
         <div class="space-y-4">
-
             <div>
                 <x-employer :employer="$job->employer"></x-employer>
             </div>
 
-            @if($job->featured)
-                <div>
-                    Featured Job
-                </div>
+            @if ($job->featured)
+                <div>Featured Job</div>
             @endif
 
-           <table class="min-w-full text-left">
+            <table class="min-w-full text-left">
                 <tbody>
-                    @if($job->salary)
+                    @if ($job->salary)
                         <tr>
-                            <td class="w-20 font-semibold pr-2">Salary:</td>
+                            <td class="w-20 pr-2 font-semibold">Salary:</td>
                             <td>{{ $job->salary }}</td>
                         </tr>
                     @endif
-                    @if($job->location)
+
+                    @if ($job->location)
                         <tr>
-                            <td class="w-20 font-semibold pr-2">Location:</td>
+                            <td class="w-20 pr-2 font-semibold">Location:</td>
                             <td>{{ $job->location }}</td>
                         </tr>
                     @endif
-                    @if($job->schedule)
+
+                    @if ($job->schedule)
                         <tr>
-                            <td class="w-20 font-semibold pr-2">Schedule:</td>
+                            <td class="w-20 pr-2 font-semibold">Schedule:</td>
                             <td>{{ $job->schedule }}</td>
                         </tr>
                     @endif
 
                     <tr>
-                        <td class="w-20 font-semibold pr-2">Posted:</td>
+                        <td class="w-20 pr-2 font-semibold">Posted:</td>
                         <td>{{ $job->created_at->diffForHumans() }}</td>
                     </tr>
                 </tbody>
             </table>
 
-            @if($job->description)
+            @if ($job->description)
                 <div>
                     {!! nl2br(e($job->description)) !!}
                 </div>
             @endif
 
-            @if($job->url)
+            @if ($job->url)
                 <div>
                     <x-pill class="text-blue-500" href="{{ $job->url }}" size="small">
                         Apply Here
@@ -68,7 +65,7 @@
             @endif
 
             <div class="flex flex-wrap gap-1">
-                @foreach($job->tags as $tag)
+                @foreach ($job->tags as $tag)
                     <div>
                         <x-tag :$tag size="small" />
                     </div>
@@ -77,7 +74,11 @@
 
             @can('edit', $job)
                 <div>
-                    <x-pill class="text-blue-500" href="{{ route('jobs.edit', $job)  }}" size="small">
+                    <x-pill
+                        class="text-blue-500"
+                        href="{{ route('jobs.edit', $job)  }}"
+                        size="small"
+                    >
                         Edit Job
                     </x-pill>
                 </div>

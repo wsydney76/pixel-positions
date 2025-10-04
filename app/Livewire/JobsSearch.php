@@ -70,7 +70,6 @@ class JobsSearch extends Component
     public Collection $employers;
     public Collection $tags;
 
-
     /**
      * Number of jobs per page for pagination.
      *
@@ -84,7 +83,6 @@ class JobsSearch extends Component
      * @var int
      */
     public int $minSearchLength = 3;
-
 
     /**
      * Initialize filter dropdowns with available employers and tags.
@@ -128,19 +126,18 @@ class JobsSearch extends Component
     protected function getQuery(): Builder|_IH_Job_QB
     {
         // Start query with eager loading employer and tags.
-        $query = Job::query()
-            ->with(['employer', 'tags']);
+        $query = Job::query()->with(['employer', 'tags']);
 
         // Filter by employer if selected.
         if ($this->employer) {
-            $query->whereHas('employer', function($q) {
+            $query->whereHas('employer', function ($q) {
                 $q->where('name', '=', $this->employer);
             });
         }
 
         // Filter by tag if selected.
         if ($this->tag) {
-            $query->whereHas('tags', function($q) {
+            $query->whereHas('tags', function ($q) {
                 $q->where('name', '=', $this->tag);
             });
         }
@@ -148,9 +145,8 @@ class JobsSearch extends Component
         // Filter by search term if long enough.
         if (strlen($this->search) >= $this->minSearchLength) {
             $term = "%{$this->search}%";
-            $query->where(function($q) use ($term) {
-                $q->where('title', 'like', $term)
-                    ->orWhere('description', 'like', $term);
+            $query->where(function ($q) use ($term) {
+                $q->where('title', 'like', $term)->orWhere('description', 'like', $term);
             });
         }
 
@@ -174,13 +170,15 @@ class JobsSearch extends Component
             ->whereHas('jobs')
             ->orderBy('name')
             ->get()
-            ->map(fn($e) => [
-                'label' => $e->name,
-                'value' => $e->name
-            ])
+            ->map(
+                fn($e) => [
+                    'label' => $e->name,
+                    'value' => $e->name,
+                ],
+            )
             ->prepend([
                 'label' => 'All Employers',
-                'value' => ''
+                'value' => '',
             ]);
 
         // Get tags that have jobs and prepare dropdown options.
@@ -188,16 +186,17 @@ class JobsSearch extends Component
             ->whereHas('jobs')
             ->orderBy('name')
             ->get()
-            ->map(fn($t) => [
-                'label' => strtolower($t->name),
-                'value' => $t->name
-            ])
+            ->map(
+                fn($t) => [
+                    'label' => strtolower($t->name),
+                    'value' => $t->name,
+                ],
+            )
             ->prepend([
                 'label' => 'All Tags',
-                'value' => ''
+                'value' => '',
             ]);
     }
-
 
     /**
      * @param Builder|_IH_Job_QB $query
@@ -210,17 +209,19 @@ class JobsSearch extends Component
         // TODO: Depending on the size of the dataset, this may need optimization/a different approach.
         $jobs = $query->get();
 
-
         $this->employers = $jobs
             ->pluck('employer.name')
             ->unique()
             ->sort()
-            ->map(fn($e) => [
-                'label' => $e,
-                'value' => $e
-            ])->prepend([
+            ->map(
+                fn($e) => [
+                    'label' => $e,
+                    'value' => $e,
+                ],
+            )
+            ->prepend([
                 'label' => 'All Employers',
-                'value' => ''
+                'value' => '',
             ]);
 
         $this->tags = $jobs
@@ -228,12 +229,15 @@ class JobsSearch extends Component
             ->flatten()
             ->unique()
             ->sortBy(fn($t) => strtolower($t))
-            ->map(fn($t) => [
-                'label' => strtolower($t),
-                'value' => $t
-            ])->prepend([
+            ->map(
+                fn($t) => [
+                    'label' => strtolower($t),
+                    'value' => $t,
+                ],
+            )
+            ->prepend([
                 'label' => 'All Tags',
-                'value' => ''
+                'value' => '',
             ]);
     }
 

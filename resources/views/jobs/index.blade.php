@@ -1,7 +1,7 @@
 <x-layouts.app>
     <div class="space-y-10">
-        <section class="text-center pt-6">
-            <h1 class="font-bold text-4xl">Let's Find Your Next Job</h1>
+        <section class="pt-6 text-center">
+            <h1 class="text-4xl font-bold">Let's Find Your Next Job</h1>
 
             <x-forms.form action="{{ route('jobs.search') }}" class="mt-6">
                 <x-forms.input :label="false" name="q" placeholder="Web Developer..." />
@@ -11,8 +11,8 @@
         <section class="pt-10">
             <x-section-heading>Featured Jobs</x-section-heading>
 
-            <div class="grid lg:grid-cols-3 gap-8 mt-6">
-                @foreach($featuredJobs as $job)
+            <div class="mt-6 grid gap-8 lg:grid-cols-3">
+                @foreach ($featuredJobs as $job)
                     <x-job-card :$job />
                 @endforeach
             </div>
@@ -22,7 +22,7 @@
             <x-section-heading>Tags</x-section-heading>
 
             <div class="mt-6 flex flex-wrap gap-2">
-                @foreach($tags as $tag)
+                @foreach ($tags as $tag)
                     <x-tag :$tag />
                 @endforeach
             </div>

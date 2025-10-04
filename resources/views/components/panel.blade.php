@@ -1,5 +1,6 @@
 @php
-    $classes = 'p-4 bg-black/5 dark:bg-white/20 rounded-xl border border-black/10 dark:border-white/10 hover:border-blue-600 transition-colors shadow-lg';
+    $classes =
+        'rounded-xl border border-black/10 bg-black/5 p-4 shadow-lg transition-colors hover:border-blue-600 dark:border-white/10 dark:bg-white/20';
 @endphp
 
 <div {{ $attributes(['class' => $classes]) }}>

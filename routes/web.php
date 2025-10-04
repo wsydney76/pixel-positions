@@ -8,22 +8,18 @@ use Illuminate\Support\Facades\Route;
 
 // Routes that do not require authentication ==============================================================
 
-Route::get('/', [JobController::class, 'index'])
-    ->name('jobs.index');
+Route::get('/', [JobController::class, 'index'])->name('jobs.index');
 
-Route::view('/jobs/search', 'jobs.search',
-    ['facetMethod' => 'query']) // query or all
+Route::view('/jobs/search', 'jobs.search', ['facetMethod' => 'query']) // query or all
     ->name('jobs.search');
 
-Route::get('/jobs/{job}', [JobController::class, 'show'])
-    ->name('jobs.show');
+Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
 
-Route::get('/employers', [EmployerController::class, 'index'])
-    ->name('employers.index');
+Route::get('/employers', [EmployerController::class, 'index'])->name('employers.index');
 
 // Routes that require authentication =====================================================================
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
     // Job creation and management
     Route::get('/jobs/create', [JobController::class, 'create']);
 
@@ -56,17 +52,14 @@ Route::middleware('auth')->group(function() {
 
 // Routes that require the user to be a guest (not authenticated) ===============================================
 
-Route::middleware('guest')->group(function() {
-
+Route::middleware('guest')->group(function () {
     // Registration management
     Route::get('/register', [RegisteredUserController::class, 'create']);
 
     Route::post('/register', [RegisteredUserController::class, 'store']);
 
     // Login management
-    Route::get('/login', [SessionController::class, 'create'])
-        ->name('login');
+    Route::get('/login', [SessionController::class, 'create'])->name('login');
 
-    Route::post('/login', [SessionController::class, 'store'])
-        ->name('login.store');
+    Route::post('/login', [SessionController::class, 'store'])->name('login.store');
 });

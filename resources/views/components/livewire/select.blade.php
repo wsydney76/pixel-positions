@@ -1,5 +1,7 @@
 @props([
-    'options', 'label', 'name'
+    'options',
+    'label',
+    'name',
 ])
 
 @php
@@ -7,14 +9,20 @@
 @endphp
 
 <div {{ $attributes }}>
-    @if($options)
-        <label for="{{ $id }}" class="block mb-2 font-semibold">{{ $label }}</label>
-        <select id="{{ $id }}"
-                class="rounded-lg bg-black/10 border px-3 py-2 text-sm w-full dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-                wire:model.live="{{ $name }}">
-            @foreach($options as $option)
-                <option value="{{ $option['value'] }}"
-                        class="bg-white text-black dark:bg-gray-900 dark:text-white">{{ $option['label'] }}</option>
+    @if ($options)
+        <label for="{{ $id }}" class="mb-2 block font-semibold">{{ $label }}</label>
+        <select
+            id="{{ $id }}"
+            class="w-full rounded-lg border bg-black/10 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+            wire:model.live="{{ $name }}"
+        >
+            @foreach ($options as $option)
+                <option
+                    value="{{ $option['value'] }}"
+                    class="bg-white text-black dark:bg-gray-900 dark:text-white"
+                >
+                    {{ $option['label'] }}
+                </option>
             @endforeach
         </select>
     @endif
