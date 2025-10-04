@@ -6,17 +6,6 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
-// Routes that do not require authentication ==============================================================
-
-Route::get('/', [JobController::class, 'index'])->name('jobs.index');
-
-Route::view('/jobs/search', 'jobs.search', ['facetMethod' => 'query']) // query or all
-    ->name('jobs.search');
-
-Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
-
-Route::get('/employers', [EmployerController::class, 'index'])->name('employers.index');
-
 // Routes that require authentication =====================================================================
 
 Route::middleware('auth')->group(function () {
@@ -63,3 +52,17 @@ Route::middleware('guest')->group(function () {
 
     Route::post('/login', [SessionController::class, 'store'])->name('login.store');
 });
+
+// Routes that do not require authentication ==============================================================
+
+Route::get('/', [JobController::class, 'index'])->name('jobs.index');
+
+Route::view('/jobs/search', 'jobs.search', ['facetMethod' => 'query']) // query or all
+->name('jobs.search');
+
+Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
+
+Route::get('/employers', [EmployerController::class, 'index'])->name('employers.index');
+
+
+
