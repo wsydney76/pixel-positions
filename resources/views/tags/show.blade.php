@@ -3,10 +3,6 @@
 
     <livewire:job-details />
 
-    <x-pill href="{{ route('jobs.search', ['tag' => $tag->name]) }}">
-        Search for tag "{{ $tag->name }}" in job listings
-    </x-pill>
-
     <section class="mt-8" x-data>
         <x-section-heading>Jobs tagged "{{ strtolower($tag->name) }}"</x-section-heading>
         @if ($jobs->count())
@@ -19,4 +15,10 @@
             <p class="mt-6 text-gray-500">No jobs currently use this tag.</p>
         @endif
     </section>
+
+    <div class="mt-8">
+        <x-pill href="{{ route('jobs.search', ['tag' => $tag->name]) }}">
+            Search for tag "{{ $tag->name }}" in job listings
+        </x-pill>
+    </div>
 </x-layouts.app>

@@ -3,7 +3,7 @@
 
     <x-panel class="mt-8">
         @if ($tags->count())
-            <ul class="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+            <x-grid-list>
                 @foreach ($tags as $tag)
                     @if ($tag->jobs_count > 0)
                         <li>
@@ -21,7 +21,7 @@
                         </li>
                     @endif
                 @endforeach
-            </ul>
+            </x-grid-list>
         @else
             <p class="text-gray-500">No tags found.</p>
         @endif

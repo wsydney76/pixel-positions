@@ -1,14 +1,17 @@
 @props([
     'job',
+    'context' => null,
 ])
 
 <x-panel class="flex items-start gap-x-6">
     <x-employer-logo :employer="$job->employer" />
 
     <div class="flex flex-1 flex-col">
-        <div>
-            <x-employer :employer="$job->employer" />
-        </div>
+        @if ($context !== 'employer')
+            <div>
+                <x-employer :employer="$job->employer" />
+            </div>
+        @endif
 
         <h3
             class="mt-3 text-xl font-bold text-black transition-colors hover:text-blue-600 dark:text-white"

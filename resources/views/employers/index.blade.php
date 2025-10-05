@@ -3,7 +3,7 @@
 
     <x-panel class="mt-8">
         @if ($employers->count())
-            <ul class="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+            <x-grid-list>
                 @foreach ($employers as $employer)
                     @if ($employer->jobs_count > 0)
                         <li>
@@ -37,7 +37,7 @@
                         </li>
                     @endif
                 @endforeach
-            </ul>
+            </x-grid-list>
         @else
             <p class="text-gray-500">No employers found.</p>
         @endif
