@@ -17,9 +17,7 @@
     </a>
 
     <div class="mb-2">
-        <x-pill type="button" @click="$dispatch('load-job-details', { id: {{ $job->id }} })">
-            Details
-        </x-pill>
+        <x-job-details-button :job="$job"/>
     </div>
 
     <div class="mt-auto flex items-center justify-between">

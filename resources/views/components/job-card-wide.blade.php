@@ -21,9 +21,7 @@
         <p class="mt-auto text-sm text-gray-900 dark:text-gray-400">{{ $job->salary }}</p>
 
         <div class="mt-2">
-            <x-pill type="button" @click="$dispatch('load-job-details', { id: {{ $job->id }} })">
-                Details
-            </x-pill>
+            <x-job-details-button :job="$job"/>
         </div>
     </div>
 
