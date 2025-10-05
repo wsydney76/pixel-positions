@@ -3,7 +3,7 @@
 
     <x-panel class="mt-8">
         @if ($tags->count())
-            <ul class="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <ul class="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
                 @foreach ($tags as $tag)
                     <li>
                         <a
