@@ -17,7 +17,7 @@
     </a>
 
     <div class="mb-2">
-        <x-job-details-button :job />
+        <x-job-details-button :job="$job" />
     </div>
 
     <div class="mt-auto flex items-center justify-between">
