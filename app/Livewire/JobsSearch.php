@@ -97,6 +97,18 @@ class JobsSearch extends Component
     }
 
     /**
+     * Reset pagination when any property is updated.
+     *
+     * Called automatically by Livewire when a public property changes.
+     *
+     * @return void
+     */
+    public function updated(): void
+    {
+        $this->resetPage();
+    }
+
+    /**
      * Render the component view with filtered jobs.
      *
      * @return \Illuminate\View\View
@@ -239,18 +251,6 @@ class JobsSearch extends Component
                 'label' => 'All Tags',
                 'value' => '',
             ]);
-    }
-
-    /**
-     * Reset pagination when any property is updated.
-     *
-     * Called automatically by Livewire when a public property changes.
-     *
-     * @return void
-     */
-    public function updated(): void
-    {
-        $this->resetPage();
     }
 
     /**
