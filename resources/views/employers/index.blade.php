@@ -14,7 +14,7 @@
                                     href="{{ route('employers.show', $employer) }}"
                                     class="flex items-center space-x-2"
                                 >
-                                    <x-employer-logo :employer="$employer" :width="32" />
+                                    <x-employer-logo :employer :width="32" />
                                     <span>{{ $employer->name }}</span>
                                 </a>
                                 <div class="flex items-center space-x-2">
