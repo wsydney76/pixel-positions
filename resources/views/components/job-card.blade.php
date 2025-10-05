@@ -2,7 +2,7 @@
     'job',
 ])
 
-<x-panel class="flex flex-col text-center">
+<x-panel class="flex flex-col text-center" x-data>
     <div class="self-start text-sm text-black hover:text-blue-600 dark:text-white">
         <x-employer :employer="$job->employer"></x-employer>
     </div>
@@ -15,6 +15,12 @@
         </h3>
         <p class="mt-4 text-sm text-black dark:text-white">{{ $job->salary }}</p>
     </a>
+
+    <div class="mb-2">
+        <x-pill type="button" @click="$dispatch('load-job-details', { id: {{ $job->id }} })">
+            Details
+        </x-pill>
+    </div>
 
     <div class="mt-auto flex items-center justify-between">
         <div class="flex flex-wrap gap-1">
