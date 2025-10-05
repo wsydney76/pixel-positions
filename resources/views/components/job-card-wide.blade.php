@@ -21,7 +21,7 @@
         <p class="mt-auto text-sm text-gray-900 dark:text-gray-400">{{ $job->salary }}</p>
 
         <div class="mt-2">
-            <x-job-details-button :job="$job"/>
+            <x-job-details-button :job="$job" />
         </div>
     </div>
 

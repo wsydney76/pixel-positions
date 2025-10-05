@@ -1,84 +1,82 @@
-<div>
-    <x-modal
-        :caption="'Details: ' . ($job ? $job->title : '')"
-        x-on:job-details-loaded.window="open()"
-    >
-        <x-slot name="panel">
-            @if ($job)
-                <div class="space-y-4">
-                    <div>
-                        <x-employer :employer="$job->employer"></x-employer>
-                    </div>
-
-                    @if ($job->featured)
-                        <div>Featured Job</div>
-                    @endif
-
-                    <table class="min-w-full text-left">
-                        <tbody>
-                            @if ($job->salary)
-                                <tr>
-                                    <td class="w-20 pr-2 font-semibold">Salary:</td>
-                                    <td>{{ $job->salary }}</td>
-                                </tr>
-                            @endif
-
-                            @if ($job->location)
-                                <tr>
-                                    <td class="w-20 pr-2 font-semibold">Location:</td>
-                                    <td>{{ $job->location }}</td>
-                                </tr>
-                            @endif
-
-                            @if ($job->schedule)
-                                <tr>
-                                    <td class="w-20 pr-2 font-semibold">Schedule:</td>
-                                    <td>{{ $job->schedule }}</td>
-                                </tr>
-                            @endif
-
-                            <tr>
-                                <td class="w-20 pr-2 font-semibold">Posted:</td>
-                                <td>{{ $job->created_at->diffForHumans() }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    @if ($job->description)
-                        <div>
-                            {!! nl2br(e($job->description)) !!}
-                        </div>
-                    @endif
-
-                    @if ($job->url)
-                        <div>
-                            <x-pill class="text-blue-500" href="{{ $job->url }}" size="small">
-                                Apply Here
-                            </x-pill>
-                        </div>
-                    @endif
-
-                    <div class="flex flex-wrap gap-1">
-                        @foreach ($job->tags as $tag)
-                            <div>
-                                <x-tag :$tag size="small" />
-                            </div>
-                        @endforeach
-                    </div>
-
-                    @can('edit', $job)
-                        <div>
-                            <x-pill
-                                class="text-blue-500"
-                                href="{{ route('jobs.edit', $job)  }}"
-                                size="small"
-                            >
-                                Edit Job
-                            </x-pill>
-                        </div>
-                    @endcan
+<x-modal
+    :caption="'Details: ' . ($job ? $job->title : '')"
+    x-on:job-details-loaded.window="open()"
+>
+    <x-slot name="panel">
+        @if ($job)
+            <div class="space-y-4">
+                <div>
+                    <x-employer :employer="$job->employer"></x-employer>
                 </div>
-            @endif
-        </x-slot>
-    </x-modal>
-</div>
+
+                @if ($job->featured)
+                    <div>Featured Job</div>
+                @endif
+
+                <table class="min-w-full text-left">
+                    <tbody>
+                        @if ($job->salary)
+                            <tr>
+                                <td class="w-20 pr-2 font-semibold">Salary:</td>
+                                <td>{{ $job->salary }}</td>
+                            </tr>
+                        @endif
+
+                        @if ($job->location)
+                            <tr>
+                                <td class="w-20 pr-2 font-semibold">Location:</td>
+                                <td>{{ $job->location }}</td>
+                            </tr>
+                        @endif
+
+                        @if ($job->schedule)
+                            <tr>
+                                <td class="w-20 pr-2 font-semibold">Schedule:</td>
+                                <td>{{ $job->schedule }}</td>
+                            </tr>
+                        @endif
+
+                        <tr>
+                            <td class="w-20 pr-2 font-semibold">Posted:</td>
+                            <td>{{ $job->created_at->diffForHumans() }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                @if ($job->description)
+                    <div>
+                        {!! nl2br(e($job->description)) !!}
+                    </div>
+                @endif
+
+                @if ($job->url)
+                    <div>
+                        <x-pill class="text-blue-500" href="{{ $job->url }}" size="small">
+                            Apply Here
+                        </x-pill>
+                    </div>
+                @endif
+
+                <div class="flex flex-wrap gap-1">
+                    @foreach ($job->tags as $tag)
+                        <div>
+                            <x-tag :$tag size="small" />
+                        </div>
+                    @endforeach
+                </div>
+
+                @can('edit', $job)
+                    <div>
+                        <x-pill
+                            class="text-blue-500"
+                            href="{{ route('jobs.edit', $job)  }}"
+                            size="small"
+                        >
+                            Edit Job
+                        </x-pill>
+                    </div>
+                @endcan
+            </div>
+        @endif
+    </x-slot>
+</x-modal>

@@ -1,7 +1,7 @@
 <div>
     {{-- {{ $sql }} --}}
 
-    <div  wire:loading.delay.class="bg-black/20 rounded-xl">
+    <div wire:loading.delay.class="bg-black/20 rounded-xl">
         <div
             id="filters"
             {{ $facetMethod == 'all' ? 'wire:ignore' : '' }}

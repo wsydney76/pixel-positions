@@ -1,5 +1,4 @@
 <x-layouts.app>
-
     <livewire:job-details />
 
     <div class="space-y-10">
