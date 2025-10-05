@@ -1,6 +1,5 @@
 <x-layouts.app>
-
-    <livewire:job-details/>
+    <livewire:job-details />
 
     <x-page-heading>{{ $employer->name }}</x-page-heading>
 
@@ -9,13 +8,17 @@
         <div class="text-2xl font-semibold">{{ $employer->name }}</div>
         <div>
             <x-pill href="{{ route('jobs.search', ['employer' => $employer->name]) }}">
-                Search Jobs
+                Search for employer "{{ $employer->name }}" in job listings
             </x-pill>
         </div>
         @can('edit', $employer)
-            <a href="{{ route('employers.edit', $employer) }}" class="text-sm text-blue-600 underline">Edit</a>
+            <a
+                href="{{ route('employers.edit', $employer) }}"
+                class="text-sm text-blue-600 underline"
+            >
+                Edit
+            </a>
         @endcan
-
     </x-panel>
 
     <section class="mt-10" x-data>
@@ -31,4 +34,3 @@
         @endif
     </section>
 </x-layouts.app>
-

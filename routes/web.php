@@ -5,6 +5,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController; // added
 
 // Routes that require authentication =====================================================================
 
@@ -65,3 +66,8 @@ Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
 Route::get('/employers', [EmployerController::class, 'index'])->name('employers.index');
 
 Route::get('/employers/{employer}', [EmployerController::class, 'show'])->name('employers.show');
+
+// Tag listing & detail routes
+Route::get('/tags', [TagController::class, 'index'])->name('tags.index');
+Route::get('/tags/{tag}', [TagController::class, 'show'])->name('tags.show');
+

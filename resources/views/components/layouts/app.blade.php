@@ -38,6 +38,7 @@
             {{--<a href="#">Careers</a>
             <a href="#">Salaries</a>--}}
             <a href="{{ route('employers.index') }}">Employers</a>
+            <a href="{{ route('tags.index') }}">Tags</a>
             <a href="{{ route('jobs.search') }}">Search</a>
         </div>
 
