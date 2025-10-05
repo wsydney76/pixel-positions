@@ -14,6 +14,12 @@ class EmployerController extends Controller
         return view('employers.index', compact('employers'));
     }
 
+    public function show(Employer $employer)
+    {
+        // Eager load related jobs with their tags and employer to avoid N+1 queries
+        $jobs = $employer->jobs()->with(['tags', 'employer'])->latest()->get();
+        return view('employers.show', compact('employer', 'jobs'));
+    }
 
     public function edit(Employer $employer)
     {

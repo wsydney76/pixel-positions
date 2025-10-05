@@ -2,6 +2,6 @@
     'employer',
 ])
 
-<x-pill href="{{ route('jobs.search', ['employer' => $employer->name]) }}">
+<x-pill href="{{ route('employers.show', $employer) }}">
     {{ $employer->name }}
 </x-pill>

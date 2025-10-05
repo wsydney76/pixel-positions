@@ -58,11 +58,10 @@ Route::middleware('guest')->group(function () {
 Route::get('/', [JobController::class, 'index'])->name('jobs.index');
 
 Route::view('/jobs/search', 'jobs.search', ['facetMethod' => 'query']) // query or all
-->name('jobs.search');
+    ->name('jobs.search');
 
 Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
 
 Route::get('/employers', [EmployerController::class, 'index'])->name('employers.index');
 
-
-
+Route::get('/employers/{employer}', [EmployerController::class, 'show'])->name('employers.show');
