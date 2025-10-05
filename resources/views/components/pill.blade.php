@@ -17,7 +17,7 @@
 @endphp
 
 @if ($type == 'link')
-    <a {{ $attributes->merge(['class' => $classes]) }}>{{ $slot }}</a>
+    <a {{ $attributes->merge(['class' => $classes]) }} wire:navigate>{{ $slot }}</a>
 @else
     <button type="button" {{ $attributes->merge(['class' => $classes]) }}>{{ $slot }}</button>
 @endif
