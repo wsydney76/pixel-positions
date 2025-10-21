@@ -4,6 +4,7 @@ use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Livewire\JobsSearch;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController; // added
 
@@ -60,6 +61,8 @@ Route::get('/', [JobController::class, 'index'])->name('jobs.index');
 
 Route::view('/jobs/search', 'jobs.search', ['facetMethod' => 'query']) // query or all
     ->name('jobs.search');
+
+Route::get('/jobs/search/fullpage', JobsSearch::class)->name('jobs.search.fullpage');
 
 Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
 

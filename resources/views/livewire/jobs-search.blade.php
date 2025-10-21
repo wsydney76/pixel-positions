@@ -1,4 +1,7 @@
 <div>
+
+    <x-page-heading>Search Jobs</x-page-heading>
+
     {{-- {{ $sql }} --}}
 
     <div wire:loading.delay.class="bg-black/20 rounded-xl">
