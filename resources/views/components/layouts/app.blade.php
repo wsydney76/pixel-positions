@@ -40,7 +40,7 @@
             <a href="{{ route('employers.index') }}">Employers</a>
             <a href="{{ route('tags.index') }}">Tags</a>
             <a href="{{ route('jobs.search') }}">Search</a>
-            <a href="{{ route('jobs.search.fullpage') }}">Search (Fullpage)</a>
+            <a href="{{ route('demo') }}">Demo (Fullpage)</a>
         </div>
 
         @auth
