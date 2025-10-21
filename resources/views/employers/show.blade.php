@@ -8,7 +8,7 @@
         @if ($jobs->count())
             <div class="mt-6 mb-8 space-y-6">
                 @foreach ($jobs as $job)
-                    <x-job-card-wide :$job context="employer" />
+                    <x-jobs.card-wide :$job context="employer" />
                 @endforeach
             </div>
         @else

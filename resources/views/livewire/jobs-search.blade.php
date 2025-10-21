@@ -1,19 +1,17 @@
 <div>
-
     <x-page-heading>Search Jobs</x-page-heading>
 
     {{-- {{ $sql }} --}}
 
     <div wire:loading.delay.class="bg-black/20 rounded-xl">
-
-        <x-job-searchform.form
+        <x-jobs.search.form
             :facetMethod="$facetMethod"
-            :employers="$employers" :tags="$tags"
+            :employers="$employers"
+            :tags="$tags"
             :sortOptions="$sortOptions"
-            :minSearchLength="$minSearchLength"/>
+            :minSearchLength="$minSearchLength"
+        />
 
-
-        <x-job-searchform.results :jobs="$jobs"/>
-
+        <x-jobs.search.results :jobs="$jobs" />
     </div>
 </div>

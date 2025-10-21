@@ -10,7 +10,7 @@
         </div>
 
         @foreach ($jobs as $job)
-            <x-job-card-wide :$job/>
+            <x-jobs.card-wide :$job/>
         @endforeach
 
         <div>
