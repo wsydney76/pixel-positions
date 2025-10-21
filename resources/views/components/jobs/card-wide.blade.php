@@ -4,12 +4,12 @@
 ])
 
 <x-panel class="flex items-start gap-x-6">
-    <x-employer-logo :employer="$job->employer" />
+    <x-employer-logo :employer="$job->employer"/>
 
     <div class="flex flex-1 flex-col">
         @if ($context !== 'employer')
             <div>
-                <x-employer :employer="$job->employer" />
+                <x-employer :employer="$job->employer"/>
             </div>
         @endif
 
@@ -31,7 +31,7 @@
     <div class="flex flex-wrap gap-2">
         @foreach ($job->tags as $tag)
             <div>
-                <x-tag :$tag />
+                <x-tag :$tag/>
             </div>
         @endforeach
     </div>
