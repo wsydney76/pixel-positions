@@ -1,4 +1,4 @@
-@use('Illuminate\Support\Collection');
+@use('Illuminate\Support\Collection')
 
 @props([
     'facetMethod',
