@@ -1,8 +1,10 @@
+@use('Illuminate\Support\Collection');
+
 @props([
     'facetMethod',
-    /** @var \Illuminate\Support\Collection */
+    /** @var Collection */
     'employers',
-    /** @var \Illuminate\Support\Collection */
+    /** @var Collection */
     'tags',
     /** @var \string[][] */
     'sortOptions',
