@@ -41,6 +41,7 @@
             <a href="{{ route('tags.index') }}">Tags</a>
             <a href="{{ route('jobs.search') }}">Search</a>
             <a href="{{ route('demo') }}">Demo (Fullpage)</a>
+            <a href="{{ route('volt') }}">Demo (Volt)</a>
         </div>
 
         @auth

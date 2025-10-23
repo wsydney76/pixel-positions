@@ -1,3 +1,33 @@
+<?php
+
+use App\Models\Job;
+use Livewire\Attributes\Url;
+use Livewire\Volt\Component;
+use Livewire\WithPagination;
+
+new class extends Component {
+    use WithPagination;
+
+    #[Url]
+    public string $search = '';
+
+    public function with(): array
+    {
+        $query = $this->search
+            ? Job::whereFullText(['title', 'description'], $this->search, ['mode' => 'boolean'])
+            : Job::orderBy('created_at', 'desc');
+
+        return [
+            'jobs' => $query->with(['employer', 'tags'])->paginate(6),
+        ];
+    }
+
+    public function updatedSearch(): void
+    {
+        $this->resetPage();
+    }
+}; ?>
+
 <div>
     <label for="search" class="mb-2 block font-semibold">Search title/description</label>
     <input

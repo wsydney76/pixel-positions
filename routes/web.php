@@ -7,7 +7,10 @@ use App\Http\Controllers\SessionController;
 use App\Livewire\Demo;
 use App\Livewire\JobsSearch;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TagController; // added
+use App\Http\Controllers\TagController;
+use Livewire\Volt\Volt;
+
+// added
 
 // Routes that require authentication =====================================================================
 
@@ -65,6 +68,8 @@ Route::view('/jobs/search', 'jobs.search', ['facetMethod' => 'query']) // query 
 
 Route::get('/demo', Demo::class)->name('demo');
 // Route::view('/demo', 'jobs.demo')->name('demo');
+
+Volt::route('/volt', 'volt')->name('volt');
 
 Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
 
