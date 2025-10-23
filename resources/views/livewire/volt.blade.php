@@ -1,32 +1,21 @@
 <?php
 
 use App\Models\Job;
-use Livewire\Attributes\Url;
-use Livewire\Volt\Component;
-use Livewire\WithPagination;
+use function Livewire\Volt\{computed, on, state, usesPagination};
 
-new class extends Component {
-    use WithPagination;
+usesPagination();
 
-    #[Url]
-    public string $search = '';
+state(['search'])->url();
 
-    public function with(): array
-    {
-        $query = $this->search
-            ? Job::whereFullText(['title', 'description'], $this->search, ['mode' => 'boolean'])
-            : Job::orderBy('created_at', 'desc');
+$jobs = computed(function() {
+    $query = $this->search
+        ? Job::whereFullText(['title', 'description'], $this->search, ['mode' => 'boolean'])
+        : Job::orderBy('created_at', 'desc');
+    return $query->with(['employer', 'tags'])->paginate(6);
+});
 
-        return [
-            'jobs' => $query->with(['employer', 'tags'])->paginate(6),
-        ];
-    }
 
-    public function updatedSearch(): void
-    {
-        $this->resetPage();
-    }
-}; ?>
+?>
 
 <div>
     <label for="search" class="mb-2 block font-semibold">Search title/description</label>
@@ -36,14 +25,14 @@ new class extends Component {
         wire:model.live.debounce.500ms="search"
     />
 
-    @if ($jobs->count())
+    @if ($this->jobs->count())
         <div class="mt-8 space-y-6">
-            @foreach ($jobs as $job)
-                <x-jobs.card-wide :$job context="demo" />
+            @foreach ($this->jobs as $job)
+                <x-jobs.card-wide :$job context="demo"/>
             @endforeach
 
             <div>
-                {{ $jobs->links() }}
+                {{ $this->jobs->links() }}
             </div>
         </div>
     @else
