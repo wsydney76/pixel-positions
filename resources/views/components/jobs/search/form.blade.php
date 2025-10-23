@@ -32,6 +32,7 @@
     <x-jobs.search.inputs.input
         class="col-span-4"
         label="Search title/description"
+        wire:ignore
         name="search"
         placeholder="Search jobs... (min. 3 char.)"
     />

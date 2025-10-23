@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::table('jobs', function (Blueprint $table) {
             // Add FULLTEXT index for MySQL
             // Note: Works on InnoDB (MySQL 5.6+)
-            $table->fullText('title');
+            $table->fullText(['title', 'description']);
         });
     }
 

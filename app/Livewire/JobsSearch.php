@@ -156,10 +156,11 @@ class JobsSearch extends Component
 
         // Filter by search term if long enough.
         if (strlen($this->search) >= $this->minSearchLength) {
-            $term = "%{$this->search}%";
-            $query->where(function ($q) use ($term) {
-                $q->where('title', 'like', $term)->orWhere('description', 'like', $term);
-            });
+            $query->whereFullText(
+                ['title', 'description'],
+                $this->search,
+                ['mode' => 'boolean']
+            );
         }
 
         // Apply sorting.
