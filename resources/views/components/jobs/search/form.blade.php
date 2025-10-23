@@ -34,6 +34,7 @@
         label="Search title/description"
         wire:ignore
         name="search"
+        type="search"
         placeholder="Search jobs... (min. 3 char.)"
     />
 

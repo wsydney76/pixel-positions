@@ -1,5 +1,5 @@
 @props([
-    'label', 'name', 'placeholder' => ''
+    'label', 'name', 'placeholder' => '', 'type' => 'text'
 ])
 
 @php
@@ -11,6 +11,6 @@
     <input id="{{ $id }}"
            class="rounded-lg bg-black/10 bg-border-black/10 bg:bg-white/10 border bg:border-white/10 px-3 py-2 text-sm w-full dark:bg-gray-800 dark:border-gray-700 dark:text-white"
            wire:model.live.debounce.500ms="{{ $name }}"
-           type="text"
+           type="{{ $type }}"
            placeholder="{{ $placeholder }}"/>
 </div>
