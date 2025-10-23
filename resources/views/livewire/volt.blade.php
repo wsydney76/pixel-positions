@@ -1,20 +1,19 @@
 <?php
-
 use App\Models\Job;
-use function Livewire\Volt\{computed, on, state, usesPagination};
+use function Livewire\Volt\{computed, state, updating, usesPagination};
 
 usesPagination();
 
-state(['search'])->url();
+state('search')->url();
 
-$jobs = computed(function() {
+$jobs = computed(function () {
     $query = $this->search
         ? Job::whereFullText(['title', 'description'], $this->search, ['mode' => 'boolean'])
         : Job::orderBy('created_at', 'desc');
     return $query->with(['employer', 'tags'])->paginate(6);
 });
 
-
+updating(['search' => fn () => $this->resetPage()]);
 ?>
 
 <div>
@@ -28,7 +27,7 @@ $jobs = computed(function() {
     @if ($this->jobs->count())
         <div class="mt-8 space-y-6">
             @foreach ($this->jobs as $job)
-                <x-jobs.card-wide :$job context="demo"/>
+                <x-jobs.card-wide :$job context="demo" />
             @endforeach
 
             <div>
