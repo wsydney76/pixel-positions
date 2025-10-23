@@ -23,7 +23,8 @@ updating(['search' => fn () => $this->resetPage()]);
     <x-page-heading>Folio and Livewire and Volt...</x-page-heading>
 
     <p class="mb-6 text-gray-600 dark:text-gray-400">
-        This is a demo page showing how to use Laravel Folio with Livewire Volt to build a simple job search page in just one file.
+        This is a demo page showing how to use Laravel Folio with Livewire Volt to build a simple
+        job search page in just one file.
     </p>
 
     @volt
@@ -52,4 +53,14 @@ updating(['search' => fn () => $this->resetPage()]);
             @endif
         </div>
     @endvolt
+
+    <p class="mt-8">
+        <a
+            href="{{ route('jobs.search') }}"
+            class="text-blue-600 hover:underline dark:text-blue-400"
+        >
+            View full featured job search page implemented with Livewire class and separate Blade
+            view.
+        </a>
+    </p>
 </x-layouts.app>
