@@ -42,6 +42,7 @@
             <a href="{{ route('jobs.search') }}">Search</a>
             <a href="{{ route('demo') }}">Demo (Fullpage)</a>
             <a href="{{ route('volt') }}">Demo (Volt)</a>
+            <a href="{{ route('folio-demo') }}">Demo (Folio)</a>
         </div>
 
         @auth

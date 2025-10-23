@@ -4,7 +4,7 @@ use function Livewire\Volt\{computed, state, updating, usesPagination};
 
 usesPagination();
 
-state('search')->url();
+state('search')->url(history: true);
 
 $jobs = computed(function () {
     $query = $this->search
