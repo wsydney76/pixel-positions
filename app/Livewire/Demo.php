@@ -24,7 +24,9 @@ class Demo extends Component
             : Job::orderBy('created_at', 'desc');
 
         return view('livewire.demo', [
-            'jobs' => $query->paginate(6),
+            'jobs' => $query
+                ->with(['employer', 'tags'])
+                ->paginate(6),
         ]);
     }
 
