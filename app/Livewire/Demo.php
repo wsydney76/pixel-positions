@@ -17,22 +17,19 @@ class Demo extends Component
     #[Url(history: true)]
     public string $search = '';
 
-    public function updated(): void
-    {
-        $this->resetPage();
-    }
-
     public function render(): Factory|ViewContract|View
     {
-        $query = Job::query();
-        if ($this->search) {
-           $query->whereFullText('title', $this->search, ['mode' => 'boolean']);
-        } else {
-           $query->orderBy('created_at', 'desc');
-        }
+        $query = $this->search
+            ? Job::whereFullText('title', $this->search, ['mode' => 'boolean'])
+            : Job::orderBy('created_at', 'desc');
 
         return view('livewire.demo', [
             'jobs' => $query->paginate(6),
         ]);
+    }
+
+    public function updated(): void
+    {
+        $this->resetPage();
     }
 }
