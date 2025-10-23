@@ -64,6 +64,7 @@ Route::view('/jobs/search', 'jobs.search', ['facetMethod' => 'query']) // query 
     ->name('jobs.search');
 
 Route::get('/demo', Demo::class)->name('demo');
+// Route::view('/demo', 'jobs.demo')->name('demo');
 
 Route::get('/jobs/{job}', [JobController::class, 'show'])->name('jobs.show');
 
