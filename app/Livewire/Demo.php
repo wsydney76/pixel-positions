@@ -24,9 +24,11 @@ class Demo extends Component
 
     public function render(): Factory|ViewContract|View
     {
-        $query = Job::query()->orderByDesc('created_at');
+        $query = Job::query();
         if ($this->search) {
-            $query->where('title', 'like', '%' . $this->search . '%');
+           $query->whereFullText('title', $this->search, ['mode' => 'boolean']);
+        } else {
+           $query->orderBy('created_at', 'desc');
         }
 
         return view('livewire.demo', [
