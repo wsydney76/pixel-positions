@@ -12,9 +12,9 @@ name('experiments');
 
     @php
         $experiments = [
-            'demo' => 'Simple search as fullpage Livewire component',
-            'volt' => 'Simple search as Livewire Volt component',
-            'folio-demo' => 'Simple search as Laravel Folio + inline Livewire Volt component',
+            'experiments.fullpage' => 'Simple search as fullpage Livewire component',
+            'experiments.volt' => 'Simple search as Livewire Volt component',
+            'experiments.folio-volt-inline' => 'Simple search as Laravel Folio + inline Livewire Volt component',
         ];
     @endphp
 

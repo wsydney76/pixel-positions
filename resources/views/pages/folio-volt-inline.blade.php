@@ -4,7 +4,7 @@ use App\Models\Job;
 use function Laravel\Folio\name;
 use function Livewire\Volt\{computed, state, updating, usesPagination};
 
-name('folio-demo');
+name('experiments.folio-volt-inline');
 
 usesPagination();
 

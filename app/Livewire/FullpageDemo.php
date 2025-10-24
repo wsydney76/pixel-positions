@@ -7,7 +7,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Demo extends Component
+class FullpageDemo extends Component
 {
     use WithPagination;
 
@@ -20,7 +20,7 @@ class Demo extends Component
             ? Job::whereFullText(['title', 'description'], $this->search, ['mode' => 'boolean'])
             : Job::orderBy('created_at', 'desc');
 
-        return view('livewire.demo', [
+        return view('livewire.fullpage-demo', [
             'jobs' => $query
                 ->with(['employer', 'tags'])
                 ->paginate(6),
