@@ -24,7 +24,9 @@
         <p class="mt-auto text-sm text-gray-900 dark:text-gray-400">{{ $job->salary }}</p>
 
         @if($context !== 'demo')
-            <x-jobs.details-button :job="$job"/>
+            <div class="mt-2">
+                <x-jobs.details-button :job="$job"/>
+            </div>
         @endif
     </div>
 

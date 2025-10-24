@@ -7,10 +7,8 @@
 
     <title>Pixel Positions</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap">
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
 
     @vite(['resources/js/app.js'])
 
@@ -20,7 +18,7 @@
 
 </head>
 
-<body class="bg-white text-black font-hanken-grotesk pb-20 dark:bg-black dark:text-white">
+<body class="bg-white text-black font-inter pb-20 dark:bg-black dark:text-white">
 
 <a href="#content" class="sr-only focus:not-sr-only absolute left-4 top-4 bg-black text-white px-4 py-2 rounded z-50">Skip to content</a>
 
@@ -33,16 +31,14 @@
             </a>
         </div>
 
-        <div class="space-x-6 font-bold">
+        <div class="space-x-6">
             <a href="/">Jobs</a>
             {{--<a href="#">Careers</a>
             <a href="#">Salaries</a>--}}
             <a href="{{ route('employers.index') }}">Employers</a>
             <a href="{{ route('tags.index') }}">Tags</a>
             <a href="{{ route('jobs.search') }}">Search</a>
-            <a href="{{ route('demo') }}">Demo (Fullpage)</a>
-            <a href="{{ route('volt') }}">Demo (Volt)</a>
-            <a href="{{ route('folio-demo') }}">Demo (Folio)</a>
+            <a href="{{ route('experiments') }}">Experiments</a>
         </div>
 
         @auth
