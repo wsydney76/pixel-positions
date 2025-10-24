@@ -27,8 +27,12 @@ updating(['search' => fn () => $this->resetPage()]);
         job search page in just one file.
     </p>
 
+
+
     @volt
         <div>
+            <x-search-tips wire:ignore/>
+
             <label for="search" class="mb-2 block font-semibold">Search title/description</label>
             <input
                 class="bg-border-black/10 bg:bg-white/10 bg:border-white/10 w-full rounded-lg border bg-black/10 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
