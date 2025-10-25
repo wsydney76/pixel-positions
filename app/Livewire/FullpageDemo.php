@@ -16,19 +16,23 @@ class FullpageDemo extends Component
 
     public function render()
     {
-        $query = $this->search
-            ? Job::whereFullText(['title', 'description'], $this->search, ['mode' => 'boolean'])
-            : Job::orderBy('created_at', 'desc');
-
-        return view('livewire.fullpage-demo', [
-            'jobs' => $query
-                ->with(['employer', 'tags'])
-                ->paginate(6),
-        ]);
+        return view(
+            'livewire.fullpage-demo',
+            [
+                'jobs' => Job::with(['employer', 'tags'])
+                    ->whereFullText(
+                        ['title', 'description'],
+                        $this->search,
+                        ['mode' => 'boolean'])
+                    ->paginate(6),
+            ]);
     }
 
-    public function updated(): void
+    public function performSearch(): void
     {
+        if (trim($this->search) === '*') {
+            $this->search = '';
+        }
         $this->resetPage();
     }
 }

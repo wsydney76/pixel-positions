@@ -1,9 +1,9 @@
 
-<div {{ $attributes }} x-data="{ open: false }" class="mb-4">
-  <button type="button" @click="open = !open" class="text-sm focus:outline-none">
+<div {{ $attributes->merge(['class' => 'mb-4 text-sm']) }} x-data="{ open: false }">
+  <button type="button" @click="open = !open" class="text-sm focus:outline-none cursor-pointer">
       <b>💡 Search Tips</b>
   </button>
-  <div x-show="open" x-transition class="text-sm mt-2" style="display: none;">
+  <div x-show="open" x-transition x-cloak class="pl-6 mt-2">
     <b>"phrase"</b> → exact phrase<br>
     <b>+word</b> → must include<br>
     <b>-word</b> → exclude<br>
