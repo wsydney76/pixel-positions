@@ -67,7 +67,6 @@ Route::view('/jobs/search', 'jobs.search', ['facetMethod' => 'query']) // query 
     ->name('jobs.search');
 
 Route::get('/experiments/fullpage', FullpageDemo::class)->name('experiments.fullpage');
-// Route::view('/demo', 'jobs.demo')->name('demo');
 
 Volt::route('/experiments/volt', 'volt-demo')->name('experiments.volt');
 
