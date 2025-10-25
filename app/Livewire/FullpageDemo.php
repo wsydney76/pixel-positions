@@ -33,7 +33,7 @@ class FullpageDemo extends Component
         );
     }
 
-    public function performSearch(): void
+    public function updatedSearch(): void
     {
         if (trim($this->search) === '*') {
             // Avoid runtime error, * can only be used as a wildcard in boolean mode.

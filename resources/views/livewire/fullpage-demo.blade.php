@@ -11,7 +11,7 @@
         type="search"
         autofocus
         wire:model="search"
-        wire:keydown.enter="performSearch"
+        wire:keydown.enter="$refresh"
     />
 
     <x-search-tips class="mt-4"/>
