@@ -34,6 +34,38 @@ class FullpageDemo extends Component
     public string $search = '';
 
     /**
+     * Render the component view with paginated job results.
+     *
+     * Builds a full-text search query on the title and description fields and
+     * eager-loads relationships used by the view.
+     *
+     * We need to pass the found jobs via 'data' instead of using a state $this->jobs
+     * because paginate() returns a type that is not serializable.
+     *
+     */
+    public function render(): ContractsView|Factory|View
+{
+    // Trim the search term to ignore surrounding whitespace and decide which query to use.
+    // If non-empty, perform a full-text search on title and description in boolean mode.
+    // Otherwise, return jobs ordered by newest first.
+    $query = trim($this->search)
+        ? Job::whereFullText(['title', 'description'], $this->search, ['mode' => 'boolean'])
+        : Job::orderByDesc('created_at');
+
+    // Build the view payload: eager-load relationships used by the view and paginate.
+    // Pagination result is passed as 'jobs' (not stored on the component) because
+    // the paginator object is not serializable as component state.
+    return view(
+        'livewire.fullpage-demo',
+        [
+            'jobs' => $query
+                ->with(['employer', 'tags']) // eager-load to avoid N+1 queries in the view
+                ->paginate(6),               // 6 items per page
+        ]
+    );
+}
+
+    /**
      * Called when the user triggers a search action.
      *
      * resetPage() ensures pagination returns to page 1 when the search term changes,
@@ -51,31 +83,6 @@ class FullpageDemo extends Component
 
         // Reset pagination to the first page when a new search is performed.
         $this->resetPage();
-    }
-
-    /**
-     * Render the component view with paginated job results.
-     *
-     * Builds a full-text search query on the title and description fields and
-     * eager-loads relationships used by the view.
-     *
-     * We need to pass the found jobs via 'data' instead of using a state $this->jobs
-     * because paginate() returns a type that is not serializable.
-     *
-     */
-    public function render(): ContractsView|Factory|View
-    {
-        return view(
-            'livewire.fullpage-demo',
-            [
-                // Paginate matching jobs; eager-load employer and tags relationships.
-                'jobs' => Job::with(['employer', 'tags'])
-                    ->whereFullText(
-                        ['title', 'description'],
-                        $this->search,
-                        ['mode' => 'boolean'])
-                    ->paginate(6),
-            ]);
     }
 
 }
