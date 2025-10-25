@@ -14,6 +14,11 @@ class FullpageDemo extends Component
     #[Url(history: true)]
     public string $search = '';
 
+    public function performSearch(): void
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         return view(
@@ -28,11 +33,4 @@ class FullpageDemo extends Component
             ]);
     }
 
-    public function performSearch(): void
-    {
-        if (trim($this->search) === '*') {
-            $this->search = '';
-        }
-        $this->resetPage();
-    }
 }
