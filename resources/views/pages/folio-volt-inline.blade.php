@@ -31,7 +31,7 @@ updating(['search' => fn () => $this->resetPage()]);
 
     @volt
         <div>
-            <x-search-tips wire:ignore/>
+            <x-search-tips class="mb-4" wire:ignore/>
 
             <label for="search" class="mb-2 block font-semibold">Search title/description</label>
             <input

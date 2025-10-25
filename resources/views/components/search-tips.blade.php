@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'mb-4 text-sm']) }}
+<div {{ $attributes->merge(['class' => 'text-sm']) }}
      x-data="{ open: false }">
 
     <button id="search-tips-button"

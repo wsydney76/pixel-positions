@@ -19,7 +19,7 @@ updating(['search' => fn () => $this->resetPage()]);
 <div>
     <x-page-heading>Livewire Volt Demo</x-page-heading>
 
-    <x-search-tips/>
+    <x-search-tips class="mb-4"/>
 
     <label for="search" class="mb-2 block font-semibold">Search title/description</label>
     <input
