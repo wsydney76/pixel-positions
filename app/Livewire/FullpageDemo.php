@@ -44,26 +44,26 @@ class FullpageDemo extends Component
      *
      */
     public function render(): ContractsView|Factory|View
-{
-    // Trim the search term to ignore surrounding whitespace and decide which query to use.
-    // If non-empty, perform a full-text search on title and description in boolean mode.
-    // Otherwise, return jobs ordered by newest first.
-    $query = trim($this->search)
-        ? Job::whereFullText(['title', 'description'], $this->search, ['mode' => 'boolean'])
-        : Job::orderByDesc('created_at');
+    {
+        // Trim the search term to ignore surrounding whitespace and decide which query to use.
+        // If non-empty, perform a full-text search on title and description in boolean mode.
+        // Otherwise, return jobs ordered by newest first.
+        $query = trim($this->search)
+            ? Job::whereFullText(['title', 'description'], $this->search, ['mode' => 'boolean'])
+            : Job::orderByDesc('created_at');
 
-    // Build the view payload: eager-load relationships used by the view and paginate.
-    // Pagination result is passed as 'jobs' (not stored on the component) because
-    // the paginator object is not serializable as component state.
-    return view(
-        'livewire.fullpage-demo',
-        [
-            'jobs' => $query
-                ->with(['employer', 'tags']) // eager-load to avoid N+1 queries in the view
-                ->paginate(6),               // 6 items per page
-        ]
-    );
-}
+        // Build the view payload: eager-load relationships used by the view and paginate.
+        // Pagination result is passed as 'jobs' (not stored on the component) because
+        // the paginator object is not serializable as component state.
+        return view(
+            'livewire.fullpage-demo',
+            [
+                'jobs' => $query
+                    ->with(['employer', 'tags']) // eager-load to avoid N+1 queries in the view
+                    ->paginate(6),               // 6 items per page
+            ]
+        );
+    }
 
     /**
      * Called when the user triggers a search action.
